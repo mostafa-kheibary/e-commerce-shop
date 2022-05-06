@@ -1,6 +1,6 @@
 import { IMenuData } from '../../data/menuData';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './Nav.css';
 
@@ -15,20 +15,24 @@ const Nav: React.FC<Props> = ({ links }) => {
           <li className='nav-item' key={index}>
             {link.submenu ? (
               <>
-                <Link className='nav-link' to={link.url}>
+                <NavLink className='nav-link link-wrapper' to={link.url}>
                   <span>{link.name}</span>
-                  <MdKeyboardArrowDown />
-                </Link>
+                  <MdKeyboardArrowDown className='nav-link__arrow-icon' />
+                </NavLink>
                 <ul className='nav__sub-menu'>
                   {link.submenu.map((sublink, subindex) => (
                     <li className='nav__sub-menu__item' key={subindex}>
-                      <Link className='nav-link' to={sublink.url}>{sublink.name}</Link>
+                      <NavLink className='nav-link' to={sublink.url}>
+                        {sublink.name}
+                      </NavLink>
                     </li>
                   ))}
                 </ul>
               </>
             ) : (
-              <Link className='nav-link' to={link.url}>{link.name}</Link>
+              <NavLink className='nav-link' to={link.url}>
+                {link.name}
+              </NavLink>
             )}
           </li>
         ))}

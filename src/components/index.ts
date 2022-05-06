@@ -1,2 +1,3 @@
 import Nav from './Nav/Nav';
-export { Nav };
+import ShopCart from './ShopCart/ShopCart';
+export { Nav, ShopCart };
