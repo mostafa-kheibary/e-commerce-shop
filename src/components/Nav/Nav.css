@@ -1,0 +1,36 @@
+.nav-wrapper {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-item {
+  position: relative;
+}
+.nav-link {
+  font-size: 1.4rem;
+  color: black;
+  text-decoration: none;
+  transition: all 2 00ms ease;
+}
+.nav-link:hover {
+  color: var(--primary-color);
+}
+.nav__sub-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  width: 15rem;
+  top: 3rem;
+  left: 0;
+  list-style: none;
+  padding: 1rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.11);
+  border: 0.1rem rgba(0, 0, 0, 0.144) solid;
+}
+.nav__sub-menu__item {
+  font-weight: 300;
+}
+.nav__sub-menu__item > .nav-link {
+  font-size: 1.3wrem;
+}
