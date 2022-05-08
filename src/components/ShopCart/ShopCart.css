@@ -34,3 +34,8 @@
   height: 2rem;
   font-size: 1rem;
 }
+@media screen and (max-width: 992px) {
+  .cart-price {
+    display: none;
+  }
+}

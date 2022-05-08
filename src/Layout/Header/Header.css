@@ -1,10 +1,20 @@
+.header-container {
+  z-index: 1000;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8rem;
+}
 .header {
+  max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  transition: all 500ms ease;
 }
 .header-left {
   display: flex;
@@ -17,6 +27,8 @@
   gap: 2rem;
 }
 .header__register-button {
+  display: flex;
+  gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: 400;
   cursor: pointer;
@@ -24,4 +36,24 @@
 }
 .header__register-button:hover {
   color: var(--black-hover);
+}
+.header.sticky {
+  padding: 1rem;
+}
+.header-container.sticky {
+  height: auto;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.096);
+}
+@media screen and (max-width: 992px) {
+  .header-left {
+    gap: 0;
+  }
+  .header__register-button {
+    display: none;
+  }
+}
+@media screen and (max-width: 400px) {
+  .header-logo {
+    width: 14rem;
+  }
 }

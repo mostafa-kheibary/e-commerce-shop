@@ -1,11 +1,12 @@
-import { RiShoppingCart2Line } from 'react-icons/ri';
+import { MdOutlineShoppingBag } from 'react-icons/md';
 import './ShopCart.css';
-const ShopCart = () => {
+
+const ShopCart: React.FC = () => {
   return (
     <div className='cart'>
       <div className='cart-icons'>
         <span className='cart-quantity'>10</span>
-        <RiShoppingCart2Line className='cart-icon' />
+        <MdOutlineShoppingBag className='cart-icon' />
       </div>
       <span className='cart-price'>00,00$</span>
     </div>

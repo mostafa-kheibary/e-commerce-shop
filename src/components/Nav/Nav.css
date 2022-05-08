@@ -17,6 +17,7 @@
   color: var(--primary-color);
 }
 .nav__sub-menu {
+  background-color: white;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -52,10 +53,15 @@
   align-items: center;
   gap: 0.2rem;
 }
-.nav-link__arrow-icon{
+.nav-link__arrow-icon {
   color: rgba(0, 0, 0, 0.349);
 }
 .nav__sub-menu__item > .nav-link {
   font-weight: 300 !important;
   font-size: 1.3rem;
+}
+@media screen and (max-width: 992px) {
+  .nav-wrapper {
+    display: none;
+  }
 }
