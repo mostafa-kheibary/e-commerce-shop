@@ -1,0 +1,34 @@
+.slider {
+  height: 65rem;
+  cursor: grab;
+}
+.slider:active {
+  cursor: grabbing;
+}
+.slider-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-position: center !important;
+  background-size: cover !important;
+}
+.slider-item__content {
+  position: absolute;
+  width: 40%;
+  top: 50%;
+  left: 10rem;
+  transform: translateY(-50%);
+}
+.slider-title {
+  font-size: 7rem;
+  font-weight: 500;
+}
+.slider-des {
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+.slider-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+}
