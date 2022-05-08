@@ -1,3 +1,4 @@
 import Nav from './Nav/Nav';
 import ShopCart from './ShopCart/ShopCart';
-export { Nav, ShopCart };
+import MobileNav from './MobileNav/MobileNav';
+export { Nav, ShopCart, MobileNav };
