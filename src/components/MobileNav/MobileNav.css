@@ -1,0 +1,56 @@
+.mobile-nav {
+  display: none;
+}
+.mobile-nav__button {
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  border: none;
+  background-color: transparent;
+  padding: 0.5rem;
+}
+.mobile-nav__button-icon {
+  font-size: 2rem;
+}
+.mobile-nav__menu {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: -100%;
+  background-color: white;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.11);
+  width: 30rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 500ms ease;
+}
+.mobile-nav__menu.open {
+  left: 0;
+}
+.over-lay {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 350ms ease;
+}
+.over-lay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+@media screen and (max-width: 992px) {
+  .mobile-nav {
+    display: block;
+  }
+}
+@media screen and (max-width: 680px) {
+  .mobile-nav__button-text {
+    display: none;
+  }
+}
