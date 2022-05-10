@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import sliderData from '../../data/sliderData';
+import { Button } from '../../components';
 import './Slider.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -40,8 +41,8 @@ const Slider: React.FC = () => {
             <h2 className='slider-title'>{slider.title}</h2>
             <p className='slider-des'>{slider.description}</p>
             <div className='slider-buttons'>
-              <button className='slider-button'>shop</button>
-              <button className='slider-button'>read more</button>
+              <Button>To Shop</Button>
+              <Button className='secoundry'>Read More</Button>
             </div>
           </div>
         </SwiperSlide>

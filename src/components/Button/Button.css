@@ -1,0 +1,21 @@
+.button-default {
+  padding: 1rem 2rem;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 0.4rem;
+  color: white;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.button-default:hover {
+  background-color: var(--dark-primary-color);
+}
+.button-default.secoundry {
+  background-color: transparent !important;
+  border: 0.1rem solid rgba(0, 0, 0, 0.26);
+  color: rgba(0, 0, 0, 0.829) !important;
+  font-weight: 400;
+}
+.button-default.secoundry:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
