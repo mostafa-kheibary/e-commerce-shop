@@ -12,10 +12,16 @@
   background-position: center !important;
   background-size: cover !important;
 }
+.slider-item__content.show {
+  top: 50%;
+  opacity: 1;
+}
 .slider-item__content {
+  opacity: 0;
+  transition: all 500ms ease;
   position: absolute;
   width: 40%;
-  top: 50%;
+  top: 80%;
   left: 10rem;
   transform: translateY(-50%);
 }

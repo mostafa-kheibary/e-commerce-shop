@@ -4,7 +4,19 @@ import sliderData from '../../data/sliderData';
 import './Slider.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
+
 const Slider: React.FC = () => {
+  const handleCurrentSldier = (e: any): void => {
+    const sliderContent: HTMLDivElement[] = [
+      ...e.$el[0].querySelectorAll('.slider-item__content'),
+    ];
+
+    for (const item of sliderContent) {
+      item.classList.remove('show');
+    }
+    sliderContent[e.activeIndex].classList.add('show');
+  };
+
   return (
     <Swiper
       className='slider'
@@ -12,11 +24,11 @@ const Slider: React.FC = () => {
       spaceBetween={0}
       navigation
       slidesPerView={1}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={handleCurrentSldier}
     >
-      {sliderData.map((slider) => (
+      {sliderData.map((slider, i) => (
         <SwiperSlide
+          key={i}
           style={{ background: `url(${slider.imgUrl})` }}
           className='slider-item'
         >
