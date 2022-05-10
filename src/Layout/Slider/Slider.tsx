@@ -6,15 +6,18 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const Slider: React.FC = () => {
+  const showCurrentSlide = (slides: HTMLDivElement[], index: number): void => {
+    for (const item of slides) {
+      item.classList.remove('show');
+    }
+    slides[index].classList.add('show');
+  };
+
   const handleCurrentSldier = (e: any): void => {
     const sliderContent: HTMLDivElement[] = [
       ...e.$el[0].querySelectorAll('.slider-item__content'),
     ];
-
-    for (const item of sliderContent) {
-      item.classList.remove('show');
-    }
-    sliderContent[e.activeIndex].classList.add('show');
+    showCurrentSlide(sliderContent, e.activeIndex);
   };
 
   return (
@@ -24,6 +27,7 @@ const Slider: React.FC = () => {
       spaceBetween={0}
       navigation
       slidesPerView={1}
+      onSwiper={handleCurrentSldier}
       onSlideChange={handleCurrentSldier}
     >
       {sliderData.map((slider, i) => (
