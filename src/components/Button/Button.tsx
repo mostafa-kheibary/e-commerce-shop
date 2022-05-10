@@ -5,7 +5,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
   className?: string;
 };
-const Button = (props: ButtonProps) => {
+const Button: React.FC<ButtonProps> = (props) => {
   const { children, className, ...rest } = props;
   return (
     <button className={`button-default ${className}`} {...rest}>
