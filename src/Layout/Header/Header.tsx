@@ -3,6 +3,7 @@ import { BiLogInCircle } from 'react-icons/bi';
 import { MobileNav, Nav, ShopCart } from '../../components';
 import menuData from '../../data/menuData';
 import logo from '../../assets/svg/Logo.svg';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 const Header: React.FC = () => {
@@ -31,10 +32,10 @@ const Header: React.FC = () => {
         </div>
         <div className='header-right'>
           <ShopCart />
-          <div className='header__register-button'>
+          <Link to='/sign-in' className='header__register-button'>
             <span>logn</span>
             <BiLogInCircle size={24} />
-          </div>
+          </Link>
         </div>
       </div>
     </div>

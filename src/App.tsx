@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Header } from './Layout';
-import About from './page/About/About';
-import Home from './page/Home/Home';
-
+import { About, Home, SignIn } from './page';
 const App: React.FC = () => {
   return (
     <Router>
@@ -11,6 +9,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
+          <Route path='/sign-in' element={<SignIn />} />
         </Routes>
       </div>
     </Router>

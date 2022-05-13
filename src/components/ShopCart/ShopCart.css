@@ -34,6 +34,34 @@
   height: 2rem;
   font-size: 1rem;
 }
+.cart-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.219);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 200ms ease;
+}
+.cart-overlay.show{
+opacity: 1;
+visibility: visible;
+}
+.cart-wrapper {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100%;
+  width: 30rem;
+  background-color: white;
+  z-index: 1000;
+  transition: all 500ms ease;
+}
+.cart-wrapper.open {
+  right: 0;
+}
 @media screen and (max-width: 992px) {
   .cart-price {
     display: none;

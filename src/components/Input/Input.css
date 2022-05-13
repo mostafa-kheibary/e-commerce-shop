@@ -1,0 +1,12 @@
+.input-default {
+  padding: 1rem 2rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+}
+.input-default[is-focus='true']:invalid {
+  border: 0.1rem solid rgba(255, 0, 0, 0.507);
+}
+.input-default:focus {
+  outline: none;
+  border: 0.1rem solid var(--primary-color);
+}

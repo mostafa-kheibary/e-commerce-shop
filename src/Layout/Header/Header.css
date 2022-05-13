@@ -27,6 +27,8 @@
   gap: 2rem;
 }
 .header__register-button {
+  text-decoration: none;
+  color: black;
   display: flex;
   gap: 0.5rem;
   font-size: 1.5rem;

@@ -59,7 +59,7 @@ const MobileNav: React.FC = () => {
       </div>
       {/* overlay */}
       <div
-        onClick={hanldeOpenMenu}
+        onClick={() => setIsOpen(false)}
         className={`over-lay ${isOpen ? 'visible' : ''}`}
       ></div>
     </div>

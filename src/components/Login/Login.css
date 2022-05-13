@@ -1,0 +1,19 @@
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.082);
+  background-color: white;
+  width: 40rem;
+  padding: 3.5rem;
+  border-radius: 0.2rem;
+}
+
+.login-background {
+  background: url('../../assets/svg/background.svg');
+  background-repeat: none;
+  background-size: cover;
+  width: 100%;
+  height: calc(100vh - 8rem);
+}

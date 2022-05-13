@@ -1,0 +1,36 @@
+.sign-in__title {
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+.sign-in__notif {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.sign-in__notif > a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+.sign-in__form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.sign-in__code-title {
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin-top: 1.5rem;
+}
+.form__code {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.wrong-code-button {
+  width: 12rem;
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
