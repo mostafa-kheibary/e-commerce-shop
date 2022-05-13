@@ -1,4 +1,5 @@
 .new-product {
+  padding: 1rem;
   margin-top: 2rem;
 }
 .new-product__head-title {
@@ -16,4 +17,10 @@
 .head-title__des {
   font-size: 1.2rem;
   margin-top: 0.5rem;
+}
+.new-product__wrapper {
+  margin-top: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
 }

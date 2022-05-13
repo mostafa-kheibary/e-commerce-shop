@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;800&display=swap');
 :root {
   --primary-color: #2e6bc6;
-  --dark-primary-color:#2b5fad;
+  --dark-primary-color: #2b5fad;
   --black-hover: rgba(0, 0, 0, 0.527);
 }
 *,
@@ -15,7 +15,14 @@
 html {
   font-size: 10px;
 }
-
+body::-webkit-scrollbar {
+  width: 1.5rem;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border: 0.3rem solid white;
+  border-radius: 50rem;
+}
 @media screen and (max-width: 680px) {
   body::-webkit-scrollbar {
     display: none;

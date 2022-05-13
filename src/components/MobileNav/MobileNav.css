@@ -81,6 +81,10 @@
 .mobile-nav__links-text {
   color: black;
   text-decoration: none;
+  transition: all 200ms ease;
+}
+.mobile-nav__links-text:hover{
+  color: var(--primary-color);
 }
 .mobile-nav__links-text::after {
   position: absolute;
