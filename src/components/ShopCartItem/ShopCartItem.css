@@ -1,0 +1,21 @@
+.shop-cart__item {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.5rem;
+}
+.shop-cart__item__image {
+  width: 8rem;
+}
+
+.shop-cart__item__name {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.shop-cart__item__price {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  position: absolute;
+  bottom: 2rem;
+}
