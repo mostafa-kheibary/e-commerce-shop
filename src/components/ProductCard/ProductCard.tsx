@@ -1,15 +1,20 @@
 import { BiGitCompare, BiSearch, BiHeart } from 'react-icons/bi';
+import { useCartContext } from '../../context/Cart/CartContext';
 import { IProducts } from '../../types/productsType';
 import './ProductCard.css';
 interface Props {
   productsData: IProducts;
 }
 const ProductCard: React.FC<Props> = ({ productsData }) => {
+  const { dispath } = useCartContext();
   const discountPrice = (
     productsData.price -
     (productsData.price * productsData.discountPercent) / 100
   ).toFixed(2);
 
+  const handleAddToCart = (): void => {
+    dispath({ type: 'ADD_TO_CART', payload: productsData });
+  };
   return (
     <div className='product-card'>
       <div className='product-card__discount-percent'>
@@ -32,7 +37,7 @@ const ProductCard: React.FC<Props> = ({ productsData }) => {
           src={productsData.imageUrls[0]}
           alt={productsData.name}
         />
-        <button className='add-to-cart'>
+        <button onClick={handleAddToCart} className='add-to-cart'>
           <h2>ADD TO CART</h2>
         </button>
       </div>
