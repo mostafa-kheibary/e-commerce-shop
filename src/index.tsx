@@ -8,14 +8,10 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 const UserAuth = () => {
   const { dispath } = useUserContext();
   useEffect(() => {
-    if (localStorage.getItem('authUser')) {
-      dispath({ type: 'SET_USER', payload: JSON.parse(localStorage.getItem('authUser') || '') });
-    }
     const auth = getAuth();
     const sub = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispath({ type: 'SET_USER', payload: user });
-        localStorage.setItem('authUser', JSON.stringify(user));
       }
     });
     return sub;
