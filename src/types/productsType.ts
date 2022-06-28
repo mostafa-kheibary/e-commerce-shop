@@ -9,4 +9,5 @@ export interface IProducts {
   id: number | string;
   imageUrls: string[];
   inStock: boolean;
+  count: number;
 }

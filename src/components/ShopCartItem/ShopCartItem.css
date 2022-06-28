@@ -19,3 +19,13 @@
   position: absolute;
   bottom: 2rem;
 }
+.shop-cart__item-delete-button {
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  font-size: 1.5rem;
+  color: red;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}

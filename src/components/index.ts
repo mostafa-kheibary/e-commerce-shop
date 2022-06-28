@@ -5,4 +5,14 @@ import Button from './Button/Button';
 import ProductCard from './ProductCard/ProductCard';
 import Login from './Login/Login';
 import Input from './Input/Input';
-export { Nav, ShopCart, MobileNav, Button, ProductCard, Login, Input };
+import ShopCartItem from './ShopCartItem/ShopCartItem';
+export {
+  Nav,
+  ShopCart,
+  MobileNav,
+  Button,
+  ProductCard,
+  Login,
+  Input,
+  ShopCartItem,
+};

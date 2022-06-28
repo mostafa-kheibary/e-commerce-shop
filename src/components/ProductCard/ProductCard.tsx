@@ -6,14 +6,23 @@ interface Props {
   productsData: IProducts;
 }
 const ProductCard: React.FC<Props> = ({ productsData }) => {
-  const { dispath } = useCartContext();
+  const { state, dispath } = useCartContext();
   const discountPrice = (
     productsData.price -
     (productsData.price * productsData.discountPercent) / 100
   ).toFixed(2);
 
   const handleAddToCart = (): void => {
-    dispath({ type: 'ADD_TO_CART', payload: productsData });
+    if (state.find((product) => product.id === productsData.id)) {
+      const product = state.find((product) => product.id === productsData.id);
+      product!.count += 1;
+      const newState = state.filter((p) => p.id !== product!.id);
+
+      dispath({ type: 'ADD_CART_COUNT', payload: [...newState, product] });
+    } else {
+      productsData.count = 1;
+      dispath({ type: 'ADD_TO_CART', payload: productsData });
+    }
   };
   return (
     <div className='product-card'>

@@ -1,10 +1,6 @@
 import { motion } from 'framer-motion';
 import { FormEvent, useEffect, useState } from 'react';
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from 'firebase/auth';
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
 import useForm from '../../hook/useForm';
@@ -14,6 +10,7 @@ import { Login } from '../../components';
 import loadingBar from '../../assets/svg/loadingBar.svg';
 import { IProducts } from '../../types/productsType';
 import './SignIn.css';
+import VerifyCodeInput from '../../components/VerifyCodeInput/VerifyCodeInput';
 
 declare global {
   interface Window {
@@ -32,23 +29,20 @@ const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const [stage, setStage] = useState<'start' | 'verify'>('start');
   const [loading, setLoading] = useState<boolean>(false);
+  const [verifyCode, setVerifyCode] = useState<number | null>(null);
   const auth = getAuth();
+
   useEffect(() => {
-    window.recaptchaVerifier = new RecaptchaVerifier(
-      'recaptcha-container',
-      {},
-      auth
-    );
+    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
   }, [auth]);
 
+  const handleCodeChnage = (code: string) => {
+    setVerifyCode(+code);
+  };
   const getVerifyCode = async () => {
     try {
       setLoading(true);
-      const confirmationResult = await signInWithPhoneNumber(
-        auth,
-        values.phone,
-        window.recaptchaVerifier
-      );
+      const confirmationResult = await signInWithPhoneNumber(auth, values.phone, window.recaptchaVerifier);
       window.confirmationResult = confirmationResult;
       setStage('verify');
       setLoading(false);
@@ -61,7 +55,7 @@ const SignIn: React.FC = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const respone = await window.confirmationResult.confirm(values.code);
+      const respone = await window.confirmationResult.confirm(verifyCode);
       const user = respone.user;
       const userDoc = await getDoc(doc(db, 'users', user.uid));
       if (!userDoc.exists()) {
@@ -74,7 +68,7 @@ const SignIn: React.FC = () => {
         await setDoc(doc(db, 'users', user.uid), newUser);
         navigate('/profile/edit');
       } else {
-        navigate('profile');
+        navigate('/profile');
       }
       setLoading(false);
       console.log(user);
@@ -88,16 +82,8 @@ const SignIn: React.FC = () => {
   return (
     <div className='login-background'>
       <Login>
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className='sign-in'
-        >
-          <h2 className='sign-in__title'>
-            {stage === 'start'
-              ? 'Sign up with your phone number '
-              : 'Enter the code'}
-          </h2>
+        <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className='sign-in'>
+          <h2 className='sign-in__title'>{stage === 'start' ? 'Sign up with your phone number ' : 'Enter the code'}</h2>
           {stage === 'start' ? (
             <form onSubmit={handleSubmit} className='sign-in__form'>
               <Input
@@ -110,11 +96,7 @@ const SignIn: React.FC = () => {
               />
               <div id='recaptcha-container'></div>
               <Button className='sign-in__button' type='submit'>
-                {loading ? (
-                  <img width={20} src={loadingBar} alt='loading' />
-                ) : (
-                  'send verification code'
-                )}
+                {loading ? <img width={20} src={loadingBar} alt='loading' /> : 'send verification code'}
               </Button>
             </form>
           ) : (
@@ -124,27 +106,12 @@ const SignIn: React.FC = () => {
               className='form__code'
               onSubmit={handleSubmitFinal}
             >
-              <Input
-                name='code'
-                onChange={handleChange}
-                type='text'
-                required
-                pattern='[0-9]{6}'
-                placeholder='enter code'
-              />
-              <button
-                type='button'
-                className='wrong-code-button'
-                onClick={() => setStage('start')}
-              >
+              <VerifyCodeInput onCodeChange={handleCodeChnage} />
+              <button type='button' className='wrong-code-button' onClick={() => setStage('start')}>
                 wrong code?
               </button>
               <Button type='submit'>
-                {loading ? (
-                  <img width={20} src={loadingBar} alt='loading' />
-                ) : (
-                  'sign in / sign up'
-                )}
+                {loading ? <img width={20} src={loadingBar} alt='loading' /> : 'sign in / sign up'}
               </Button>
             </motion.form>
           )}

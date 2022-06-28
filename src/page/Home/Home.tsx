@@ -1,8 +1,7 @@
 import { Slider, NewProduct, Container } from '../../Layout';
-import { getAuth } from 'firebase/auth';
+import { useUserContext } from '../../context/User/UserContext';
 const Home: React.FC = () => {
-  const auth = getAuth();
-  console.log(auth.currentUser);
+  const { state, dispath } = useUserContext();
   return (
     <div className='home'>
       <Slider />

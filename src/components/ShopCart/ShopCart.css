@@ -75,10 +75,12 @@
   height: calc(100% - 7rem);
 }
 .cart-wrapper__footer {
+  padding: 1rem;
+  text-align: center;
   border-top: 2px solid rgba(0, 0, 0, 0.123);
   height: 7rem;
   background-color: white;
-  width: 100%;
+  width: 35rem;
   position: fixed;
   bottom: 0;
 }
@@ -87,7 +89,10 @@
   font-size: 2rem;
   font-weight: 400;
 }
-
+.cart-wrapper__footer__button {
+  width: 100%;
+  margin: 0 auto;
+}
 @media screen and (max-width: 992px) {
   .cart-price {
     display: none;
