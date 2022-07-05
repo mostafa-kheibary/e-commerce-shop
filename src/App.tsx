@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartContextProvider } from './context/Cart/CartContext';
-import { Header } from './Layout';
+import { Header, ProfileDetails } from './Layout';
 import { About, Home, Profile, SignIn } from './page';
 import PrivetRoute from './routes/PrivetRoute';
 
@@ -13,10 +13,17 @@ const App: React.FC = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/sign-in' element={<SignIn />} />
+            {/* privet pages */}
             <Route element={<PrivetRoute />}>
               <Route path='/about' element={<About />} />
-              <Route path='/profile' element={<Profile />} />
+              <Route path='/profile' element={<Profile />}>
+                <Route path='details' element={<ProfileDetails />} />
+                <Route path='adress' element={<ProfileDetails />} />
+                <Route path='order' element={<ProfileDetails />} />
+                <Route path='setting' element={<ProfileDetails />} />
+              </Route>
             </Route>
+            {/* privet pages */}
           </Routes>
         </div>
       </Router>

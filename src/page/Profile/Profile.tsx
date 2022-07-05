@@ -1,7 +1,9 @@
 import { Button } from '../../components';
 import { useUserContext } from '../../context/User/UserContext';
 import { getAuth, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+import './Profile.css';
+import { Container, ProfileSideBar } from '../../Layout';
 
 const Profile: React.FC = () => {
   const {
@@ -21,13 +23,23 @@ const Profile: React.FC = () => {
     }
   };
   return (
-    <div>
-      <h2>Profile page</h2>
-      <h3>{user.displayName}</h3>
-      <Button onClick={handleLogOut} className='secoundry'>
-        log out
-      </Button>
-    </div>
+    <Container className='profile-container'>
+      <div className='profile__sidebar'>
+        <ProfileSideBar />
+      </div>
+      <div className='profile__content'>
+        {window.location.pathname.split('/')[2] ? (
+          <Outlet />
+        ) : (
+          <div>
+            <h2 className='profile__content__welcome-message '>welcome {user.displayName || user.phoneNumber} </h2>
+            <p className='profile__content__welcome-sub-message'>
+              navigate between profile pages by link in left sidebar{' '}
+            </p>
+          </div>
+        )}
+      </div>
+    </Container>
   );
 };
 

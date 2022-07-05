@@ -1,0 +1,26 @@
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+}
+.profile__content {
+  margin-top: 6rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.123);
+  width: calc(100% - 25rem);
+  padding: 4rem;
+  height: 100%;
+}
+.profile__sidebar {
+  width: fit-content;
+}
+.profile__content__welcome-message {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+.profile__content__welcome-sub-message {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
