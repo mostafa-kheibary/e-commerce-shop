@@ -1,4 +1,5 @@
 import { BiGitCompare, BiSearch, BiHeart } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 import { useCartContext } from '../../context/Cart/CartContext';
 import useLocalStorage from '../../hook/useLocalStorage';
 import { IProducts } from '../../types/productsType';
@@ -8,10 +9,16 @@ interface Props {
 }
 const ProductCard: React.FC<Props> = ({ productsData }) => {
   const { state, dispath } = useCartContext();
+  const navigate = useNavigate();
   const { setStorage, getStorage } = useLocalStorage();
   const discountPrice = (productsData.price - (productsData.price * productsData.discountPercent) / 100).toFixed(2);
 
-  const handleAddToCart = (): void => {
+  const handleOpenProduct = (): void => {
+    navigate(`/shop/product/${productsData.id}`);
+  };
+
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.stopPropagation();
     // add count to the new product and set it to 1 as default
     if (state.find((product) => product.id === productsData.id)) {
       const product = state.find((product) => product.id === productsData.id);
@@ -28,7 +35,7 @@ const ProductCard: React.FC<Props> = ({ productsData }) => {
     }
   };
   return (
-    <div className='product-card'>
+    <div onClick={handleOpenProduct} className='product-card'>
       <div className='product-card__discount-percent'>-{productsData.discountPercent}%</div>
       <div className='product-card__tools'>
         <button className='product-card__tools-tool'>

@@ -7,6 +7,7 @@ import ProfileDetails from './ProfileDetails/ProfileDetails';
 import ProfileOrder from './ProfileOrder/ProfileOrder';
 import ProfileFavourit from './ProfileFavourit/ProfileFavourit';
 import ProfileSetting from './ProfileSetting/ProfileSetting';
+import ProductSlider from './ProductSlider/ProductSlider';
 export {
   Header,
   Container,
@@ -17,4 +18,5 @@ export {
   ProfileOrder,
   ProfileFavourit,
   ProfileSetting,
+  ProductSlider,
 };
