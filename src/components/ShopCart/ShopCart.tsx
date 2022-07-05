@@ -11,6 +11,8 @@ import './ShopCart.css';
 const ShopCart: React.FC = () => {
   const { state, dispath } = useCartContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [addAnimation, setAddAnimation] = useState<boolean>(false);
+
   const { getStorage } = useLocalStorage();
   const totalPrice = state
     .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.count), 0)
@@ -20,12 +22,20 @@ const ShopCart: React.FC = () => {
     const cartData = getStorage('SHOP_CART');
     dispath({ type: 'SET_CART', payload: cartData });
   }, []);
+  useEffect(() => {
+    setAddAnimation(true);
+    setTimeout(() => {
+      setAddAnimation(false);
+    }, 1000);
+  }, [state]);
   return (
     <div>
       <div onClick={() => setIsOpen(false)} className={`cart-overlay ${isOpen ? 'show' : ''}`}></div>
       <div onClick={() => setIsOpen(!isOpen)} className='cart'>
         <div className='cart-icons'>
-          <span className='cart-quantity'>{state.reduce((prev, pro) => (prev += pro.count), 0)}</span>
+          <span className={`cart-quantity ${addAnimation ? 'active' : ''}`}>
+            {state.reduce((prev, pro) => (prev += pro.count), 0)}
+          </span>
           <MdOutlineShoppingBag className='cart-icon' />
         </div>
         <span className='cart-price'>{totalPrice} $</span>

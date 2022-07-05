@@ -1,6 +1,4 @@
-import { AiOutlineUser, AiOutlineShopping, AiOutlineSetting } from 'react-icons/ai';
-import { GoLocation } from 'react-icons/go';
-
+import { AiOutlineUser, AiOutlineShopping, AiOutlineSetting, AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../context/User/UserContext';
 import './ProfileSideBar.css';
@@ -12,7 +10,7 @@ const ProfileSideBar: React.FC = () => {
 
   const linkData = [
     { to: 'details', text: 'My details', icon: <AiOutlineUser /> },
-    { to: 'addres', text: 'My address book', icon: <GoLocation /> },
+    { to: 'favourit', text: 'My favourit', icon: <AiOutlineHeart /> },
     { to: 'order', text: 'My order', icon: <AiOutlineShopping /> },
     { to: 'setting', text: 'Acount setting', icon: <AiOutlineSetting /> },
   ];

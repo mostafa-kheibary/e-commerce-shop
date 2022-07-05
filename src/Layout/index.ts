@@ -4,4 +4,17 @@ import Slider from './Slider/Slider';
 import NewProduct from './NewProducts/NewProduct';
 import ProfileSideBar from './ProfileSideBar/ProfileSideBar';
 import ProfileDetails from './ProfileDetails/ProfileDetails';
-export { Header, Container, Slider, NewProduct, ProfileSideBar ,ProfileDetails};
+import ProfileOrder from './ProfileOrder/ProfileOrder';
+import ProfileFavourit from './ProfileFavourit/ProfileFavourit';
+import ProfileSetting from './ProfileSetting/ProfileSetting';
+export {
+  Header,
+  Container,
+  Slider,
+  NewProduct,
+  ProfileSideBar,
+  ProfileDetails,
+  ProfileOrder,
+  ProfileFavourit,
+  ProfileSetting,
+};

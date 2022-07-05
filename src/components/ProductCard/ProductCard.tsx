@@ -12,6 +12,7 @@ const ProductCard: React.FC<Props> = ({ productsData }) => {
   const discountPrice = (productsData.price - (productsData.price * productsData.discountPercent) / 100).toFixed(2);
 
   const handleAddToCart = (): void => {
+    // add count to the new product and set it to 1 as default
     if (state.find((product) => product.id === productsData.id)) {
       const product = state.find((product) => product.id === productsData.id);
       product!.count += 1;
@@ -19,6 +20,7 @@ const ProductCard: React.FC<Props> = ({ productsData }) => {
       setStorage('SHOP_CART', [...newState, product]);
       dispath({ type: 'SET_CART', payload: [...newState, product] });
     } else {
+      // if allready have count and added to cart, add one to count
       productsData.count = 1;
       const cartData = getStorage('SHOP_CART');
       setStorage('SHOP_CART', [...cartData, productsData]);
@@ -31,12 +33,15 @@ const ProductCard: React.FC<Props> = ({ productsData }) => {
       <div className='product-card__tools'>
         <button className='product-card__tools-tool'>
           <BiGitCompare size={20} />
+          <span className='product-card__tools-tool__info'>compare</span>
         </button>
         <button className='product-card__tools-tool'>
           <BiSearch size={20} />
+          <span className='product-card__tools-tool__info'>quick review</span>
         </button>
         <button className='product-card__tools-tool'>
           <BiHeart size={20} />
+          <span className='product-card__tools-tool__info'>add to favourite</span>
         </button>
       </div>
       <div className='product-card__image'>

@@ -1,25 +1,13 @@
-import { getAuth, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+
 import { Button, Input } from '../../components';
 import { useUserContext } from '../../context/User/UserContext';
 import './ProfileDetails.css';
 
 const ProfileDetails: React.FC = () => {
-  const auth = getAuth();
-  const navigate = useNavigate();
   const {
     state: { user },
-    dispath,
   } = useUserContext();
-  const handleLogOut = async () => {
-    try {
-      await signOut(auth);
-      dispath({ type: 'LOG_OUT' });
-      navigate('/');
-    } catch (error) {
-      console.log('error in sign out');
-    }
-  };
+
   return (
     <div className='profile-details'>
       <h2 className='profile-details__title'>My Details </h2>

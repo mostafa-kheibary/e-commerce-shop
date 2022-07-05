@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartContextProvider } from './context/Cart/CartContext';
-import { Header, ProfileDetails } from './Layout';
+import { Header, ProfileDetails, ProfileFavourit, ProfileOrder, ProfileSetting } from './Layout';
 import { About, Home, Profile, SignIn } from './page';
 import PrivetRoute from './routes/PrivetRoute';
 
@@ -18,9 +18,9 @@ const App: React.FC = () => {
               <Route path='/about' element={<About />} />
               <Route path='/profile' element={<Profile />}>
                 <Route path='details' element={<ProfileDetails />} />
-                <Route path='addres' element={<ProfileDetails />} />
-                <Route path='order' element={<ProfileDetails />} />
-                <Route path='setting' element={<ProfileDetails />} />
+                <Route path='favourit' element={<ProfileFavourit />} />
+                <Route path='order' element={<ProfileOrder />} />
+                <Route path='setting' element={<ProfileSetting />} />
               </Route>
             </Route>
             {/* privet pages */}

@@ -34,6 +34,25 @@
   padding: 1rem 1.5rem;
   transition: all 300ms ease;
 }
+.product-card__tools-tool__info {
+  position: absolute;
+  right: 4rem;
+  width: 12rem;
+  background-color: white;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.144);
+  top: 50%;
+  transform: translate(2rem, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 200ms ease;
+}
+.product-card__tools-tool:hover > .product-card__tools-tool__info {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -50%);
+}
 .product-card__tools > * {
   cursor: pointer;
 }
@@ -41,6 +60,7 @@
   right: 1rem;
 }
 .product-card__tools-tool {
+  position: relative;
   border: none;
   background-color: transparent;
   color: rgb(65, 65, 65);
