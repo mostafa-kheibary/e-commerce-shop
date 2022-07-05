@@ -1,0 +1,28 @@
+.profile-details{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.profile-details__title {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.profile-details__personal-info {
+  margin-top: 2rem;
+}
+.profile-details__personal-info__title {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.profile-details__line {
+  margin: 0.5rem;
+  width: 100%;
+  height: 2px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.048)
+}
+.profile-details__form {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}

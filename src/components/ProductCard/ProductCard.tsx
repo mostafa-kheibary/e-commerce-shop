@@ -17,7 +17,7 @@ const ProductCard: React.FC<Props> = ({ productsData }) => {
       product!.count += 1;
       const newState = state.filter((p) => p.id !== product!.id);
       setStorage('SHOP_CART', [...newState, product]);
-      dispath({ type: 'ADD_CART_COUNT', payload: [...newState, product] });
+      dispath({ type: 'SET_CART', payload: [...newState, product] });
     } else {
       productsData.count = 1;
       const cartData = getStorage('SHOP_CART');

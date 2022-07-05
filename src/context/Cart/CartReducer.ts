@@ -7,10 +7,22 @@ const cartReducer = (state: IProducts[], action: IAction) => {
   switch (action.type) {
     case 'ADD_TO_CART':
       return [...state, action.payload];
-    case 'ADD_CART_COUNT':
-      return action.payload;
     case 'REMOVE_FROM_CART':
       return state.filter((item) => item.id !== action.payload);
+    case 'INCRESE_COUNT':
+      return state.map((item) => {
+        if (item.id === action.payload) {
+          return { ...item, count: item.count + 1 };
+        }
+        return item;
+      });
+    case 'DECRESE_COUNT':
+      return state.map((item) => {
+        if (item.id === action.payload) {
+          return { ...item, count: item.count - 1 };
+        }
+        return item;
+      });
     case 'SET_CART':
       return action.payload;
     default:

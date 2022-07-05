@@ -29,3 +29,28 @@
   border: none;
   background-color: transparent;
 }
+.shop-cart__item-count {
+  font-size: 1.3rem;
+  font-weight: 500;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  background-color: white;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.164);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.shop-cart__item__counter {
+  position: absolute;
+  display: flex;
+  gap: 1rem;
+  bottom: 2rem;
+  right: 2rem;
+}
+.shop-cart__item__counter-button {
+  padding: 0.1rem 0.8rem !important;
+}

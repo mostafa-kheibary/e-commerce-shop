@@ -2,7 +2,7 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import useLocalStorage from '../../hook/useLocalStorage';
 import { useCartContext } from '../../context/Cart/CartContext';
 import { IProducts } from '../../types/productsType';
-
+import { Button } from '../';
 import './ShopCartItem.css';
 
 interface IProps {
@@ -18,15 +18,31 @@ const ShopCartItem: React.FC<IProps> = ({ item }) => {
     handleDeleteLocalStorage();
   };
 
-  const handleDeleteLocalStorage = () => {
+  const handleDeleteLocalStorage = (): void => {
     const cartCopy = [...state];
     const filterdCart = cartCopy.filter((product) => product.id !== item.id);
     setStorage('SHOP_CART', filterdCart);
   };
-
+  const increseItemCount = (): void => {
+    dispath({ type: 'INCRESE_COUNT', payload: item.id });
+  };
+  const decreseItemCount = (): void => {
+    dispath({ type: 'DECRESE_COUNT', payload: item.id });
+    if (item.count <= 1) {
+      handleDelete();
+    }
+  };
   return (
     <div className='shop-cart__item'>
-      <p>{item.count}</p>
+      <p className='shop-cart__item-count'>{item.count}</p>
+      <div className='shop-cart__item__counter'>
+        <Button onClick={increseItemCount} className='shop-cart__item__counter-button secoundry'>
+          +
+        </Button>
+        <Button onClick={decreseItemCount} className='shop-cart__item__counter-button secoundry'>
+          -
+        </Button>
+      </div>
       <button onClick={handleDelete} className='shop-cart__item-delete-button'>
         <AiOutlineDelete />
       </button>

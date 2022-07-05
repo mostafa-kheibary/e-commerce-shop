@@ -10,26 +10,27 @@ const ProfileSideBar: React.FC = () => {
     state: { user },
   } = useUserContext();
 
+  const linkData = [
+    { to: 'details', text: 'My details', icon: <AiOutlineUser /> },
+    { to: 'addres', text: 'My address book', icon: <GoLocation /> },
+    { to: 'order', text: 'My order', icon: <AiOutlineShopping /> },
+    { to: 'setting', text: 'Acount setting', icon: <AiOutlineSetting /> },
+  ];
   return (
     <div className='profile-sidebar'>
       <h2 className='profile-sidebar__title'>Hi {user.displayName}</h2>
       <div className='profile-sidebar__links'>
-        <Link className='profile-sidebar__link' to='details'>
-          <AiOutlineUser />
-          My details
-        </Link>
-        <Link className='profile-sidebar__link' to='adress'>
-          <GoLocation />
-          My adress book
-        </Link>
-        <Link className='profile-sidebar__link' to='order'>
-          <AiOutlineShopping />
-          My order
-        </Link>
-        <Link className='profile-sidebar__link' to='setting'>
-          <AiOutlineSetting />
-          Acount setting
-        </Link>
+        {linkData.map((link) => (
+          <Link
+            className={`profile-sidebar__link ${window.location.pathname.split('/')[2] === link.to ? 'active' : ''}`}
+            to={link.to}
+          >
+            <div className='profile-sidebar__link-content'>
+              {link.text}
+              {link.icon}
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

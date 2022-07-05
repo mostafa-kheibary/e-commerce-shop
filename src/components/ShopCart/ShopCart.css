@@ -78,11 +78,16 @@
   padding: 1rem;
   text-align: center;
   border-top: 2px solid rgba(0, 0, 0, 0.123);
-  height: 7rem;
   background-color: white;
   width: 35rem;
   position: fixed;
   bottom: 0;
+}
+.cart-wrapper__footer__total-price {
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 1rem;
+  text-align: left;
 }
 .cart-title {
   padding: 1.8rem;
@@ -92,6 +97,20 @@
 .cart-wrapper__footer__button {
   width: 100%;
   margin: 0 auto;
+}
+.empty-cart {
+  margin-top: 5rem;
+  text-align: center;
+  padding: 2rem;
+}
+.empty-cart__text {
+  color: rgb(255, 70, 70);
+  font-weight: 500;
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+}
+.empty-cart__image {
+  width: 25rem;
 }
 @media screen and (max-width: 992px) {
   .cart-price {
