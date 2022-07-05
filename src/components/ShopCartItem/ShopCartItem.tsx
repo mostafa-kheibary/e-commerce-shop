@@ -1,4 +1,5 @@
 import { AiOutlineDelete } from 'react-icons/ai';
+import useLocalStorage from '../../hook/useLocalStorage';
 import { useCartContext } from '../../context/Cart/CartContext';
 import { IProducts } from '../../types/productsType';
 
@@ -8,12 +9,19 @@ interface IProps {
   item: IProducts;
 }
 const ShopCartItem: React.FC<IProps> = ({ item }) => {
-  const { dispath } = useCartContext();
-
+  const { state, dispath } = useCartContext();
+  const { setStorage } = useLocalStorage();
   const discountPrice = (item.price - (item.price * item.discountPercent) / 100).toFixed(2);
 
   const handleDelete = (): void => {
     dispath({ type: 'REMOVE_FROM_CART', payload: item.id });
+    handleDeleteLocalStorage();
+  };
+
+  const handleDeleteLocalStorage = () => {
+    const cartCopy = [...state];
+    const filterdCart = cartCopy.filter((product) => product.id !== item.id);
+    setStorage('SHOP_CART', filterdCart);
   };
 
   return (

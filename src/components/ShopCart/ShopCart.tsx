@@ -1,20 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { useCartContext } from '../../context/Cart/CartContext';
+import useLocalStorage from '../../hook/useLocalStorage';
 import { IProducts } from '../../types/productsType';
 import { Button } from '../';
 import ShopCartItem from '../ShopCartItem/ShopCartItem';
 import './ShopCart.css';
 
 const ShopCart: React.FC = () => {
-  const { state } = useCartContext();
+  const { state, dispath } = useCartContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const { getStorage } = useLocalStorage();
   const totalPrice = state
     .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.count), 0)
     .toFixed(2);
-  
-    return (
+
+  useEffect(() => {
+    const cartData = getStorage('SHOP_CART');
+    dispath({ type: 'SET_CART', payload: cartData });
+  }, []);
+  return (
     <div>
       <div onClick={() => setIsOpen(false)} className={`cart-overlay ${isOpen ? 'show' : ''}`}></div>
       <div onClick={() => setIsOpen(!isOpen)} className='cart'>
