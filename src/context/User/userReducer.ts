@@ -7,8 +7,10 @@ interface IAction {
 }
 const userReducer = (state: IState, action: IAction) => {
   switch (action.type) {
-    case 'SET_USER':
+    case 'LOG_IN':
       return { user: action.payload };
+    case 'LOG_OUT':
+      return { user: null };
   }
 };
 export default userReducer;

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FormEvent, useEffect, useState } from 'react';
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, updateProfile } from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
 import useForm from '../../hook/useForm';
@@ -9,6 +9,7 @@ import { Button, Input } from '../../components';
 import { Login } from '../../components';
 import loadingBar from '../../assets/svg/loadingBar.svg';
 import { IProducts } from '../../types/productsType';
+import { useUserContext } from '../../context/User/UserContext';
 import './SignIn.css';
 import VerifyCodeInput from '../../components/VerifyCodeInput/VerifyCodeInput';
 
@@ -27,9 +28,10 @@ interface IUser {
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
-  const [stage, setStage] = useState<'start' | 'verify'>('start');
+  const { dispath } = useUserContext();
+  const [stage, setStage] = useState<'start' | 'verify' | 'newUser'>('start');
   const [loading, setLoading] = useState<boolean>(false);
-  const [verifyCode, setVerifyCode] = useState<number | null>(null);
+  const [verifyCode, setVerifyCode] = useState<number>(0);
   const auth = getAuth();
 
   useEffect(() => {
@@ -38,6 +40,9 @@ const SignIn: React.FC = () => {
 
   const handleCodeChnage = (code: string) => {
     setVerifyCode(+code);
+    if (code.length >= 6) {
+      handleSubmitFinal(+code);
+    }
   };
   const getVerifyCode = async () => {
     try {
@@ -51,11 +56,15 @@ const SignIn: React.FC = () => {
       console.log(error);
     }
   };
-  const handleSubmitFinal = async (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    handleSubmitFinal(verifyCode);
+  };
+  const handleSubmitFinal = async (code: number) => {
     try {
       setLoading(true);
-      const respone = await window.confirmationResult.confirm(verifyCode);
+      console.log(verifyCode);
+      const respone = await window.confirmationResult.confirm(code);
       const user = respone.user;
       const userDoc = await getDoc(doc(db, 'users', user.uid));
       if (!userDoc.exists()) {
@@ -66,14 +75,35 @@ const SignIn: React.FC = () => {
           purchuses: [],
         };
         await setDoc(doc(db, 'users', user.uid), newUser);
-        navigate('/profile/edit');
+        setStage('newUser');
       } else {
         navigate('/profile');
       }
+      dispath({ type: 'LOG_IN', payload: user });
       setLoading(false);
       console.log(user);
     } catch (error) {
       setLoading(false);
+      console.log(error);
+    }
+  };
+  const handleChnageName = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      console.log(values.name);
+      const user = auth.currentUser;
+      const newUser: IUser = {
+        name: values.name,
+        id: user!.uid,
+        phone: values.phone,
+        purchuses: [],
+      };
+      await Promise.all([
+        await setDoc(doc(db, 'users', user!.uid), newUser),
+        await updateProfile(user!, { displayName: values.name }),
+      ]);
+      navigate('/profile');
+    } catch (error) {
       console.log(error);
     }
   };
@@ -83,7 +113,13 @@ const SignIn: React.FC = () => {
     <div className='login-background'>
       <Login>
         <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className='sign-in'>
-          <h2 className='sign-in__title'>{stage === 'start' ? 'Sign up with your phone number ' : 'Enter the code'}</h2>
+          <h2 className='sign-in__title'>
+            {stage === 'start'
+              ? 'Sign up with your phone number '
+              : stage === 'verify'
+              ? 'Enter the code'
+              : 'welcome , add your name'}
+          </h2>
           {stage === 'start' ? (
             <form onSubmit={handleSubmit} className='sign-in__form'>
               <Input
@@ -99,20 +135,31 @@ const SignIn: React.FC = () => {
                 {loading ? <img width={20} src={loadingBar} alt='loading' /> : 'send verification code'}
               </Button>
             </form>
-          ) : (
+          ) : stage === 'verify' ? (
             <motion.form
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               className='form__code'
-              onSubmit={handleSubmitFinal}
+              onSubmit={handleLogin}
             >
+              <p className='sign-in__status-sms'>we send SMS to your phone : {values.phone}</p>
               <VerifyCodeInput onCodeChange={handleCodeChnage} />
               <button type='button' className='wrong-code-button' onClick={() => setStage('start')}>
-                wrong code?
+                wrong phone number?
               </button>
               <Button type='submit'>
                 {loading ? <img width={20} src={loadingBar} alt='loading' /> : 'sign in / sign up'}
               </Button>
+            </motion.form>
+          ) : (
+            <motion.form
+              onSubmit={handleChnageName}
+              className='form__user-name'
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+            >
+              <Input name='name' onChange={handleChange} required placeholder='Mostafa Kheibary' />
+              <Button type='submit'>submit</Button>
             </motion.form>
           )}
         </motion.div>

@@ -16,10 +16,13 @@ const useAuth = () => {
         if (user) {
           setIsAuth(true);
           setLoading(false);
+        } else {
+          setIsAuth(false);
+          setLoading(false);
         }
       });
     }
-  }, []);
+  }, [state.user]);
   return { loading, isAuth };
 };
 

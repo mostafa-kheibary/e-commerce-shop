@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { BiLogInCircle } from 'react-icons/bi';
 import { MobileNav, Nav, ShopCart } from '../../components';
 import menuData from '../../data/menuData';
 import logo from '../../assets/svg/Logo.svg';
-import { Link } from 'react-router-dom';
 import './Header.css';
+import LoginButton from '../../components/LoginButton/LoginButton';
 
 const Header: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -32,10 +31,7 @@ const Header: React.FC = () => {
         </div>
         <div className='header-right'>
           <ShopCart />
-          <Link to='/sign-in' className='header__register-button'>
-            <span>logn</span>
-            <BiLogInCircle size={24} />
-          </Link>
+          <LoginButton />
         </div>
       </div>
     </div>

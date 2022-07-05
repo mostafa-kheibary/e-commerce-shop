@@ -11,11 +11,11 @@ const UserAuth = () => {
     const auth = getAuth();
     const sub = onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispath({ type: 'SET_USER', payload: user });
+        dispath({ type: 'LOG_IN', payload: user });
       }
     });
     return sub;
-  }, []);
+  }, [dispath]);
 
   return <div></div>;
 };
