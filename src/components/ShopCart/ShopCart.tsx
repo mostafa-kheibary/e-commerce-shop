@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { useCartContext } from '../../context/Cart/CartContext';
 import useLocalStorage from '../../hook/useLocalStorage';
@@ -63,4 +63,4 @@ const ShopCart: React.FC = () => {
   );
 };
 
-export default ShopCart;
+export default memo(ShopCart);

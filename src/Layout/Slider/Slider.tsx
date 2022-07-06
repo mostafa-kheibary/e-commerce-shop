@@ -15,9 +15,7 @@ const Slider: React.FC = () => {
   };
 
   const handleCurrentSldier = (e: any): void => {
-    const sliderContent: HTMLDivElement[] = [
-      ...e.$el[0].querySelectorAll('.slider-item__content'),
-    ];
+    const sliderContent: HTMLDivElement[] = [...e.$el[0].querySelectorAll('.slider-item__content')];
     showCurrentSlide(sliderContent, e.activeIndex);
   };
 
@@ -32,11 +30,7 @@ const Slider: React.FC = () => {
       onSlideChange={handleCurrentSldier}
     >
       {sliderData.map((slider, i) => (
-        <SwiperSlide
-          key={i}
-          style={{ background: `url(${slider.imgUrl})` }}
-          className='slider-item'
-        >
+        <SwiperSlide key={i} style={{ background: `url(${slider.imgUrl})` }} className='slider-item'>
           <div className='slider-item__content'>
             <h2 className='slider-title'>{slider.title}</h2>
             <p className='slider-des'>{slider.description}</p>

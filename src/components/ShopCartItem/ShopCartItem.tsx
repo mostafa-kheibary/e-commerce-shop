@@ -4,6 +4,7 @@ import { useCartContext } from '../../context/Cart/CartContext';
 import { IProducts } from '../../types/productsType';
 import { Button } from '../';
 import './ShopCartItem.css';
+import { memo } from 'react';
 
 interface IProps {
   item: IProducts;
@@ -46,7 +47,7 @@ const ShopCartItem: React.FC<IProps> = ({ item }) => {
       <button onClick={handleDelete} className='shop-cart__item-delete-button'>
         <AiOutlineDelete />
       </button>
-      <img className='shop-cart__item__image' src={item.imageUrls[0]} alt={item.name} />
+      <img className='shop-cart__item__image' loading='lazy' src={item.imageUrls[0]} alt={item.name} />
       <div className='shop-cart__item__content'>
         <h2 className='shop-cart__item__name'>{item.name}</h2>
         <p className='shop-cart__item__price'>{discountPrice} $</p>
@@ -54,4 +55,4 @@ const ShopCartItem: React.FC<IProps> = ({ item }) => {
     </div>
   );
 };
-export default ShopCartItem;
+export default memo(ShopCartItem);

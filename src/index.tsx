@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { UserContextProvider, useUserContext } from './context/User/UserContext';
+import { ToastContextProvider } from './context/Toast/ToastContext';
 import App from './App';
 import './style/globalStyle.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -23,9 +24,11 @@ const UserAuth = () => {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <UserContextProvider>
-    <UserAuth />
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <ToastContextProvider>
+      <UserAuth />
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ToastContextProvider>
   </UserContextProvider>
 );

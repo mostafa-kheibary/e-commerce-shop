@@ -52,7 +52,12 @@ const ProductCard: React.FC<Props> = ({ productsData }) => {
         </button>
       </div>
       <div className='product-card__image'>
-        <img className='product-card__image-image' src={productsData.imageUrls[0]} alt={productsData.name} />
+        <img
+          className='product-card__image-image'
+          loading='lazy'
+          src={productsData.imageUrls[0]}
+          alt={productsData.name}
+        />
         <button onClick={handleAddToCart} className='add-to-cart'>
           <h2>ADD TO CART</h2>
         </button>

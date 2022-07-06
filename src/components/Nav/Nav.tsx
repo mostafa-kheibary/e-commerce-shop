@@ -3,6 +3,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 
 import './Nav.css';
+import { memo } from 'react';
 
 interface Props {
   links: IMenuData[];
@@ -41,4 +42,4 @@ const Nav: React.FC<Props> = ({ links }) => {
   );
 };
 
-export default Nav;
+export default memo(Nav);
