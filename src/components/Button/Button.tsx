@@ -1,16 +1,12 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { motion } from 'framer-motion';
 import './Button.css';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: ReactNode;
-  className?: string;
-};
-const Button: React.FC<ButtonProps> = (props) => {
+const Button: React.FC<any> = (props) => {
   const { children, className, ...rest } = props;
   return (
-    <button className={`button-default ${className}`} {...rest}>
+    <motion.button whileTap={{ scale: 0.95 }} className={`button-default ${className}`} {...rest}>
       {children}
-    </button>
+    </motion.button>
   );
 };
 

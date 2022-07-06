@@ -11,6 +11,11 @@
   margin: 0;
   font-family: 'Poppins', sans-serif;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+*:focus {
+  outline: none !important;
 }
 html {
   font-size: 10px;
