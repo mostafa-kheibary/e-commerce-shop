@@ -1,5 +1,4 @@
 import { Suspense, lazy } from 'react';
-import Toast from '../../components/Toast/Toast';
 import { Slider } from '../../Layout';
 
 const Home: React.FC = () => {
@@ -8,7 +7,6 @@ const Home: React.FC = () => {
   return (
     <div className='home'>
       <Slider />
-      <Toast />
       <Suspense fallback={<h2>loading</h2>}>
         <Container>
           <NewProduct />

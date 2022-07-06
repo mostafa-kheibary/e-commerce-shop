@@ -10,7 +10,7 @@
   top: 3rem;
   right: -100vh;
   box-shadow: -0.2rem 0 2rem rgba(0, 0, 0, 0.13);
-  z-index: 1000;
+  z-index: 10000;
   border-radius: 0.5rem;
   transition: all 600ms ease;
 }

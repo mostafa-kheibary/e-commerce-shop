@@ -12,6 +12,7 @@ import { IProducts } from '../../types/productsType';
 import { useUserContext } from '../../context/User/UserContext';
 import './SignIn.css';
 import VerifyCodeInput from '../../components/VerifyCodeInput/VerifyCodeInput';
+import useToast from '../../hook/useToast';
 
 declare global {
   interface Window {
@@ -29,6 +30,7 @@ interface IUser {
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const { dispath } = useUserContext();
+  const { errorToast, succsesToast } = useToast();
   const [stage, setStage] = useState<'start' | 'verify' | 'newUser'>('start');
   const [loading, setLoading] = useState<boolean>(false);
   const [verifyCode, setVerifyCode] = useState<number>(0);
@@ -53,6 +55,7 @@ const SignIn: React.FC = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      errorToast('canrt get code', 'try again and get new code ');
       console.log(error);
     }
   };
@@ -78,13 +81,18 @@ const SignIn: React.FC = () => {
         setStage('newUser');
       } else {
         navigate('/profile');
+        succsesToast('Login succsesfully', 'Now you can see your information in profile tabs');
       }
       dispath({ type: 'LOG_IN', payload: user });
       setLoading(false);
       console.log(user);
-    } catch (error) {
+    } catch (error: any) {
       setLoading(false);
-      console.log(error);
+      if (error.toString().includes('auth/invalid-verification-code')) {
+        errorToast('code is not correct', 'please enter correct code');
+      } else {
+        errorToast('somthing went wrong', 'cant login, try again');
+      }
     }
   };
   const handleChnageName = async (e: FormEvent<HTMLFormElement>) => {
@@ -103,8 +111,10 @@ const SignIn: React.FC = () => {
         await updateProfile(user!, { displayName: values.name }),
       ]);
       navigate('/profile');
+      succsesToast('Login succsesfully', 'Now you can see your information in profile tabs');
     } catch (error) {
       console.log(error);
+      errorToast('somthing went wrong', 'cant add user name try again');
     }
   };
   const { values, handleChange, handleSubmit } = useForm(getVerifyCode);
