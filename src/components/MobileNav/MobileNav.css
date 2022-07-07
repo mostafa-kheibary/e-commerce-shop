@@ -25,6 +25,19 @@
   flex-direction: column;
   transition: all 500ms ease;
 }
+@media screen and (max-width: 350px) {
+  .mobile-nav__menu {
+    width: 80%;
+  }
+}
+.mobile-menu__register-button {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
 .mobile-nav__menu__search-box {
   display: flex;
   align-items: center;
@@ -83,7 +96,7 @@
   text-decoration: none;
   transition: all 200ms ease;
 }
-.mobile-nav__links-text:hover{
+.mobile-nav__links-text:hover {
   color: var(--primary-color);
 }
 .mobile-nav__links-text::after {

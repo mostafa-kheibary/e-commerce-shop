@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MobileNav, Nav, ShopCart } from '../../components';
 import menuData from '../../data/menuData';
 import logo from '../../assets/svg/Logo.svg';
@@ -26,12 +27,16 @@ const Header: React.FC = () => {
       <div className={`header ${show ? 'sticky' : ''}`}>
         <MobileNav />
         <div className='header-left'>
-          <img className='header-logo' src={logo} alt='logo of website' />
+          <Link to='/'>
+            <img className='header-logo' src={logo} alt='logo of website' />
+          </Link>
           <Nav links={menuData} />
         </div>
         <div className='header-right'>
           <ShopCart />
-          <LoginButton />
+          <div className='header__login-button'>
+            <LoginButton />
+          </div>
         </div>
       </div>
     </div>

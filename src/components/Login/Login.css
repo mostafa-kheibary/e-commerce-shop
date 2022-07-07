@@ -9,7 +9,12 @@
   padding: 3.5rem;
   border-radius: 0.2rem;
 }
-
+@media screen and (max-width:450px){
+ .login-form{
+  width: 85%;
+  padding: 2.5rem;
+ } 
+}
 .login-background {
   background: url('../../assets/svg/background.svg');
   background-repeat: none;

@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import menuData from '../../data/menuData';
+import { Button } from '../';
 import './MobileNav.css';
+import LoginButton from '../LoginButton/LoginButton';
 
 const NavLink: React.FC = () => {
   return (
@@ -49,19 +51,15 @@ const MobileNav: React.FC = () => {
       {/* manu */}
       <div className={`mobile-nav__menu ${isOpen ? 'open' : ''}`}>
         <div className='mobile-nav__menu__search-box'>
-          <input
-            className='mobile-nav__menu__search-box__search-input'
-            type=''
-            placeholder='search for product'
-          />
+          <input className='mobile-nav__menu__search-box__search-input' type='' placeholder='search for product' />
         </div>
         <NavLink />
+        <Button className='mobile-menu__register-button secoundry'>
+          <LoginButton />
+        </Button>
       </div>
       {/* overlay */}
-      <div
-        onClick={() => setIsOpen(false)}
-        className={`over-lay ${isOpen ? 'visible' : ''}`}
-      ></div>
+      <div onClick={() => setIsOpen(false)} className={`over-lay ${isOpen ? 'visible' : ''}`}></div>
     </div>
   );
 };

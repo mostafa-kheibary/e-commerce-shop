@@ -50,7 +50,7 @@
   .header-left {
     gap: 0;
   }
-  .header__register-button {
+  .header__login-button {
     display: none;
   }
 }

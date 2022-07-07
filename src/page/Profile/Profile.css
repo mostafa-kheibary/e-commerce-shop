@@ -12,6 +12,14 @@
   padding: 4rem;
   height: 100%;
 }
+@media screen and (max-width: 900px) {
+  .profile__content {
+    width: 100%;
+  }
+  .profile-container {
+    gap: 0;
+  }
+}
 .profile__sidebar {
   width: fit-content;
 }

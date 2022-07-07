@@ -37,3 +37,8 @@
 .profile-sidebar__link.active > .profile-sidebar__link-content {
   transform: translateX(1rem);
 }
+@media screen and (max-width:900px){
+  .profile-sidebar{
+    display: none;
+  }
+}

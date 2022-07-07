@@ -60,6 +60,14 @@
   z-index: 1000;
   transition: all 500ms ease;
 }
+@media screen and (max-width: 380px) {
+  .cart-wrapper {
+    width: 80%;
+  }
+  .cart-wrapper__footer {
+    width: 80% !important;
+  }
+}
 .cart-wrapper.open {
   right: 0;
 }
@@ -111,7 +119,7 @@
   font-size: 1.5rem;
 }
 .empty-cart__image {
-  width: 25rem;
+  width: clamp(20rem, 70vw, 25rem);
 }
 .cart-quantity.active {
   animation: tilt-shaking 1s ease;
