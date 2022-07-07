@@ -1,9 +1,9 @@
-import { FormEvent, FormEventHandler, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 type event = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
-const useForm = (submitFunction: any) => {
-  const [values, setValues] = useState<any>({});
+const useForm = (submitFunction: () => void, defaultValue: any = {}) => {
+  const [values, setValues] = useState<any>(defaultValue);
 
   const handleChange = (e: event): void => {
     setValues({ ...values, [e.target.name]: e.target.value });

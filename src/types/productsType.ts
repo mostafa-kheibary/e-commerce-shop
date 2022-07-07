@@ -1,7 +1,7 @@
 export interface IProducts {
   name: string;
   price: number;
-  timeStamp: string;
+  timeStamp: { seconds: number; nanoseconds: number };
   catagory: string;
   description: string;
   discountPercent: number;

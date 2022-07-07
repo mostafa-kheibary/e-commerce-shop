@@ -1,0 +1,103 @@
+.product-page {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.product-page__path {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.438);
+  margin-bottom: 2rem;
+}
+.product-page__path-link {
+  color: black !important;
+  text-decoration: none;
+}
+.product-page__content {
+  padding: 2rem;
+  width: 100%;
+}
+.product-page__content__title {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+.product-page__content__date {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: rgb(112, 112, 112);
+}
+.product-page__content__price {
+  font-size: 2rem;
+  margin-top: 2rem;
+  font-weight: 400;
+}
+.product-page__line {
+  width: 100%;
+  height: 1px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.096);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.product-page__status {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.product-page__status > h4 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.product-page__status__stock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.product-page__status__stock-text {
+  display: flex;
+  align-items: center;
+}
+.product-page__status__stock-icon {
+  color: green;
+  font-size: 2rem;
+}
+.product-page__status__out-stock-icon {
+  color: red;
+  font-size: 2rem;
+}
+.product-page__buy-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+.product-page__buy-section__input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.product-page__buy-section__input > input {
+  width: 5rem;
+  padding: 1rem;
+}
+.product-page__buy-section__input > h4 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-left: 1rem;
+}
+.product-page__warn-message {
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin-top: 2rem;
+}
+.product-page__discription {
+  margin-top: 2rem;
+}
+.product-page__discription__title {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+.product-page__discription__text{
+  margin-top: 1rem;
+  font-weight: 400;
+  font-size: 1.5rem ;
+}
