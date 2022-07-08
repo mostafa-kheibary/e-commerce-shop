@@ -18,12 +18,13 @@ const Product: React.FC = () => {
   const [product, setProduct] = useState<IProducts | null>(null);
   const { errorToast } = useToast();
   const handleAddToCart = () => {
-    if (+values.quantity >= 1) {
+    if (+values.quantity >= 1 && product?.inStock) {
       addToCart(product!, +values.quantity);
     } else {
       errorToast('cant add product to cart', 'make sure put number in quantity input');
     }
   };
+
   useEffect(() => {
     (async () => {
       try {
@@ -39,7 +40,33 @@ const Product: React.FC = () => {
 
   const { handleChange, handleSubmit, values } = useForm(handleAddToCart, { quantity: 1 });
   if (!product) {
-    return <h2>nothig found</h2>;
+    return (
+      <Container>
+        <div className='product-skeleton-loading'>
+          <section className='product-skeleton-loading__left'>
+            <div className='product-skeleton-loading__left__image'></div>
+          </section>
+          <section className='product-skeleton-loading__right'>
+            <div className='product-skeleton-loading__right__title'></div>
+            <div className='product-skeleton-loading__right__date'></div>
+            <div className='product-skeleton-loading__right__price'></div>
+            <section className='product-skeleton-loading__right__buy'>
+              <div className='product-skeleton-loading__right__buy__text'></div>
+              <div className='product-skeleton-loading__right__buy__button'></div>
+            </section>
+            <section className='product-skeleton-loading__right__buy'>
+              <div className='product-skeleton-loading__right__buy__text'></div>
+              <div className='product-skeleton-loading__right__buy__button'></div>
+            </section>
+            <div className='product-skeleton-loading__paragraph'></div>
+          </section>
+        </div>
+        <div className='product-skeleton-loading non-flex'>
+          <div className='product-skeleton-loading__dis-title'></div>
+          <div className='product-skeleton-loading__dis-text'></div>
+        </div>
+      </Container>
+    );
   }
   return (
     <Container>
@@ -85,7 +112,9 @@ const Product: React.FC = () => {
               <h4>Quantity :</h4>
               <Input min={1} max={50} onChange={handleChange} value={values.quantity} name='quantity' type='number' />
             </div>
-            <Button type='submit'>ADD TO CART</Button>
+            <Button disabled={!product.inStock} type='submit'>
+              ADD TO CART
+            </Button>
           </form>
           <p className='product-page__warn-message'>
             Note: Electronic products sold in US store operate on (110-120) volts, a step-down power converter is

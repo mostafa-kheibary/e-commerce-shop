@@ -19,3 +19,7 @@
 .button-default.secoundry:hover {
   background-color: rgba(0, 0, 0, 0.04) !important;
 }
+.button-default:disabled {
+  background-color: rgba(0, 119, 255, 0.336);
+  cursor: not-allowed;
+}

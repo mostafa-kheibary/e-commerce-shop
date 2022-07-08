@@ -1,7 +1,6 @@
 import { BiGitCompare, BiSearch, BiHeart } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { useCartContext } from '../../context/Cart/CartContext';
-import useLocalStorage from '../../hook/useLocalStorage';
 import { IProducts } from '../../types/productsType';
 import './ProductCard.css';
 interface Props {
