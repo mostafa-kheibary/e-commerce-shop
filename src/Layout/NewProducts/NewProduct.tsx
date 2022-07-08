@@ -31,7 +31,7 @@ const NewProduct: React.FC = () => {
       </div>
       <div className='new-product__wrapper'>
         {products.map((product) => (
-          <ProductCard key={product.id} productsData={product} />
+          <ProductCard key={product.id} productData={product} />
         ))}
       </div>
     </div>

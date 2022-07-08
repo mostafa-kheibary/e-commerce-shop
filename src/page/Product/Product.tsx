@@ -9,13 +9,20 @@ import { TiTick } from 'react-icons/ti';
 import { RiCloseFill } from 'react-icons/ri';
 import './Product.css';
 import { Button, Input } from '../../components';
+import useToast from '../../hook/useToast';
+import { useCartContext } from '../../context/Cart/CartContext';
 
 const Product: React.FC = () => {
   const { id } = useParams<string>();
+  const { addToCart } = useCartContext();
   const [product, setProduct] = useState<IProducts | null>(null);
+  const { errorToast } = useToast();
   const handleAddToCart = () => {
-    console.log('submit');
-    console.log(values);
+    if (+values.quantity >= 1) {
+      addToCart(product!, +values.quantity);
+    } else {
+      errorToast('cant add product to cart', 'make sure put number in quantity input');
+    }
   };
   useEffect(() => {
     (async () => {
@@ -25,7 +32,7 @@ const Product: React.FC = () => {
         const productData: any = data.data();
         setProduct(productData);
       } catch (error) {
-        console.log(error);
+        errorToast('cant get data from server', 'make sure you have accses to internet ');
       }
     })();
   }, []);
@@ -76,14 +83,7 @@ const Product: React.FC = () => {
           <form className='product-page__buy-section' onSubmit={handleSubmit}>
             <div className='product-page__buy-section__input'>
               <h4>Quantity :</h4>
-              <Input
-                min={1}
-                onChange={handleChange}
-                value={values.quantity}
-                name='quantity'
-                placeholder='1'
-                type='number'
-              />
+              <Input min={1} max={50} onChange={handleChange} value={values.quantity} name='quantity' type='number' />
             </div>
             <Button type='submit'>ADD TO CART</Button>
           </form>

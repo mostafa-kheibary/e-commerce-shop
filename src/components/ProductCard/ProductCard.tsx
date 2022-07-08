@@ -5,38 +5,25 @@ import useLocalStorage from '../../hook/useLocalStorage';
 import { IProducts } from '../../types/productsType';
 import './ProductCard.css';
 interface Props {
-  productsData: IProducts;
+  productData: IProducts;
 }
-const ProductCard: React.FC<Props> = ({ productsData }) => {
-  const { state, dispath } = useCartContext();
+const ProductCard: React.FC<Props> = ({ productData }) => {
+  const { addToCart } = useCartContext();
   const navigate = useNavigate();
-  const { setStorage, getStorage } = useLocalStorage();
-  const discountPrice = (productsData.price - (productsData.price * productsData.discountPercent) / 100).toFixed(2);
+  const discountPrice = (productData.price - (productData.price * productData.discountPercent) / 100).toFixed(2);
 
   const handleOpenProduct = (): void => {
-    navigate(`/shop/product/${productsData.id}`);
+    navigate(`/shop/product/${productData.id}`);
   };
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
-    // add count to the new product and set it to 1 as default
-    if (state.find((product) => product.id === productsData.id)) {
-      const product = state.find((product) => product.id === productsData.id);
-      product!.count += 1;
-      const newState = state.filter((p) => p.id !== product!.id);
-      setStorage('SHOP_CART', [...newState, product]);
-      dispath({ type: 'SET_CART', payload: [...newState, product] });
-    } else {
-      // if allready have count and added to cart, add one to count
-      productsData.count = 1;
-      const cartData = getStorage('SHOP_CART');
-      setStorage('SHOP_CART', [...cartData, productsData]);
-      dispath({ type: 'ADD_TO_CART', payload: productsData });
-    }
+    addToCart(productData, 1);
   };
+
   return (
     <div onClick={handleOpenProduct} className='product-card'>
-      <div className='product-card__discount-percent'>-{productsData.discountPercent}%</div>
+      <div className='product-card__discount-percent'>-{productData.discountPercent}%</div>
       <div className='product-card__tools'>
         <button className='product-card__tools-tool'>
           <BiGitCompare size={20} />
@@ -55,17 +42,17 @@ const ProductCard: React.FC<Props> = ({ productsData }) => {
         <img
           className='product-card__image-image'
           loading='lazy'
-          src={productsData.imageUrls[0]}
-          alt={productsData.name}
+          src={productData.imageUrls[0]}
+          alt={productData.name}
         />
         <button onClick={handleAddToCart} className='add-to-cart'>
           <h2>ADD TO CART</h2>
         </button>
       </div>
       <div className='product-card__content'>
-        <h4 className='product-card__name'>{productsData.name}</h4>
+        <h4 className='product-card__name'>{productData.name}</h4>
         <div className='product-card__content__price'>
-          <del className='product-card__regular-price'>{productsData.price}</del>
+          <del className='product-card__regular-price'>{productData.price}</del>
           <span className='product-card__discount-price'>{discountPrice}</span>
         </div>
       </div>

@@ -31,6 +31,7 @@ const ProductSlider: React.FC<IProps> = ({ images }) => {
                 whileTap={{ scale: 0.9 }}
                 onClick={handleChangeImage}
                 src={image}
+                loading='lazy'
                 className={`product-slider__images-image ${image === slectedImage ? 'active-slide' : ''}`}
               />
             </SwiperSlide>
