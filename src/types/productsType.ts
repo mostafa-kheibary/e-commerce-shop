@@ -6,7 +6,7 @@ export interface IProducts {
   description: string;
   discountPercent: number;
   features: string[];
-  id: number | string;
+  id: string;
   imageUrls: string[];
   inStock: boolean;
   count: number;

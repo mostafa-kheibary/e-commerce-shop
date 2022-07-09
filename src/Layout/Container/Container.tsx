@@ -4,7 +4,7 @@ interface Iprops {
   className?: string;
 }
 const Container: React.FC<Iprops> = ({ children, className }) => {
-  return <div className={`container ${className}`}>{children}</div>;
+  return <div className={`container ${className ? className : ''}`}>{children}</div>;
 };
 
 export default Container;

@@ -5,7 +5,7 @@ import useLocalStorage from '../../hook/useLocalStorage';
 import { IProducts } from '../../types/productsType';
 import { Button } from '../';
 import ShopCartItem from '../ShopCartItem/ShopCartItem';
-import emptyCartImage from '../../assets/image/empty-cart.png';
+import emptyCartImage from '../../assets/image/cart.png';
 import './ShopCart.css';
 
 const ShopCart: React.FC = () => {

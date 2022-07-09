@@ -1,6 +1,6 @@
 import { Container, ProductSlider } from '../../Layout';
 import { Link, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
 import { IProducts } from '../../types/productsType';
@@ -13,6 +13,8 @@ import useToast from '../../hook/useToast';
 import { useCartContext } from '../../context/Cart/CartContext';
 
 const Product: React.FC = () => {
+  const RelatedProduct = useMemo(() => lazy(() => import('../../Layout/RelatedProduct/RelatedProduct')), []);
+
   const { id } = useParams<string>();
   const { addToCart } = useCartContext();
   const [product, setProduct] = useState<IProducts | null>(null);
@@ -26,6 +28,7 @@ const Product: React.FC = () => {
   };
 
   useEffect(() => {
+    setProduct(null);
     (async () => {
       try {
         const docRef = doc(db, 'products', `${id}`);
@@ -36,7 +39,7 @@ const Product: React.FC = () => {
         errorToast('cant get data from server', 'make sure you have accses to internet ');
       }
     })();
-  }, []);
+  }, [id]);
 
   const { handleChange, handleSubmit, values } = useForm(handleAddToCart, { quantity: 1 });
   if (!product) {
@@ -68,6 +71,7 @@ const Product: React.FC = () => {
       </Container>
     );
   }
+  const discountPrice = (product!.price - (product!.price * product!.discountPercent) / 100).toFixed(2);
   return (
     <Container>
       <div className='product-page__path'>
@@ -89,7 +93,11 @@ const Product: React.FC = () => {
           <span className='product-page__content__date'>
             {new Timestamp(product.timeStamp.seconds, product.timeStamp.nanoseconds).toDate().toDateString()}
           </span>
-          <h4 className='product-page__content__price'>$ {product.price}</h4>
+
+          <div className='product-page__content__prices'>
+            <del className='product-page__content__non-discount-price'>$ {product.price}</del>
+            <h4 className='product-page__content__price'>$ {discountPrice}</h4>
+          </div>
           <hr className='product-page__line' />
           <div className='product-page__status'>
             <h4 className='product-page__status__stock'>
@@ -127,6 +135,20 @@ const Product: React.FC = () => {
       <div className='product-page__discription'>
         <h4 className='product-page__discription__title'>discription</h4>
         <p className='product-page__discription__text'>{product.description}</p>
+        <ul className='product-page__discription__features'>
+          {product.features.map((feature, i) => (
+            <li key={i} className='product-page__discription__feature'>
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <hr className='product-page__line' />
+      <div className='product-page__sugested-product'>
+        <h4 className='product-page__sugested-product__title'>related producs</h4>
+        <Suspense fallback={<h2>loading</h2>}>
+          <RelatedProduct catagory={product.catagory} currentProductId={product.id} />
+        </Suspense>
       </div>
     </Container>
   );

@@ -28,7 +28,7 @@ const ShopCartItem: React.FC<IProps> = ({ item }) => {
       </button>
       <img className='shop-cart__item__image' loading='lazy' src={item.imageUrls[0]} alt={item.name} />
       <div className='shop-cart__item__content'>
-        <h2 className='shop-cart__item__name'>{item.name}</h2>
+        <h2 className='shop-cart__item__name'>{item.name.length >= 30 ? `${item.name.slice(0, 35)} ...` : item.name}</h2>
         <p className='shop-cart__item__price'>{discountPrice} $</p>
       </div>
     </div>

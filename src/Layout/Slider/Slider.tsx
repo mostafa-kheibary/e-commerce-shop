@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
+import { useNavigate } from 'react-router-dom';
 import sliderData from '../../data/sliderData';
 import { Button } from '../../components';
 import './Slider.css';
@@ -7,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const Slider: React.FC = () => {
+  const navigate = useNavigate();
   const showCurrentSlide = (slides: HTMLDivElement[], index: number): void => {
     for (const item of slides) {
       item.classList.remove('show');
@@ -35,7 +37,7 @@ const Slider: React.FC = () => {
             <h2 className='slider-title'>{slider.title}</h2>
             <p className='slider-des'>{slider.description}</p>
             <div className='slider-buttons'>
-              <Button>To Shop</Button>
+              <Button onClick={() => navigate('/shop')}>To shop</Button>
               <Button className='secoundry'>Read More</Button>
             </div>
           </div>

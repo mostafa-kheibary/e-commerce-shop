@@ -26,6 +26,18 @@
   font-weight: 500;
   color: rgb(112, 112, 112);
 }
+.product-page__content__prices {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  text-align: left;
+  justify-content: left;
+}
+.product-page__content__non-discount-price {
+  font-size: 1.4rem;
+  display: block;
+  color: rgba(0, 0, 0, 0.507);
+}
 .product-page__content__price {
   font-size: 2rem;
   margin-top: 2rem;
@@ -101,7 +113,25 @@
   font-weight: 400;
   font-size: 1.5rem;
 }
-
+.product-page__discription__features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.product-page__discription__feature {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-left: 4rem;
+}
+.product-page__sugested-product {
+  margin-top: 2rem;
+}
+.product-page__sugested-product__title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
 /* skeleton loading  */
 
 .product-skeleton-loading {

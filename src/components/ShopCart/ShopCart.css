@@ -113,12 +113,13 @@
   padding: 2rem;
 }
 .empty-cart__text {
-  color: rgb(255, 70, 70);
-  font-weight: 500;
+  color: rgb(0, 0, 0);
+  font-weight: 300;
   margin-top: 0.5rem;
   font-size: 1.5rem;
 }
 .empty-cart__image {
+  user-select: none;
   width: clamp(20rem, 70vw, 25rem);
 }
 .cart-quantity.active {
