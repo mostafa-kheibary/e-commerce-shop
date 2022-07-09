@@ -27,7 +27,7 @@ const RelatedProduct: FC<IProps> = ({ catagory, currentProductId }) => {
       const productData: IProducts[] = data.filter((product) => product.id !== currentProductId);
       setRelatedProduct(productData);
     })();
-  }, []);
+  }, [catagory, currentProductId]);
   return (
     <div className='related-product'>
       <Swiper

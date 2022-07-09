@@ -1,6 +1,6 @@
 import { Container, ProductSlider } from '../../Layout';
 import { Link, useParams } from 'react-router-dom';
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
 import { IProducts } from '../../types/productsType';
@@ -16,7 +16,7 @@ const Product: React.FC = () => {
   const RelatedProduct = useMemo(() => lazy(() => import('../../Layout/RelatedProduct/RelatedProduct')), []);
 
   const { id } = useParams<string>();
-  const { addToCart } = useCartContext();
+  const { addToCart, state } = useCartContext();
   const [product, setProduct] = useState<IProducts | null>(null);
   const { errorToast } = useToast();
   const handleAddToCart = () => {
@@ -28,8 +28,8 @@ const Product: React.FC = () => {
   };
 
   useEffect(() => {
-    setProduct(null);
-    (async () => {
+    const fethProduct = async () => {
+      setProduct(null);
       try {
         const docRef = doc(db, 'products', `${id}`);
         const data = await getDoc(docRef);
@@ -38,7 +38,8 @@ const Product: React.FC = () => {
       } catch (error) {
         errorToast('cant get data from server', 'make sure you have accses to internet ');
       }
-    })();
+    };
+    fethProduct();
   }, [id]);
 
   const { handleChange, handleSubmit, values } = useForm(handleAddToCart, { quantity: 1 });
@@ -72,6 +73,7 @@ const Product: React.FC = () => {
     );
   }
   const discountPrice = (product!.price - (product!.price * product!.discountPercent) / 100).toFixed(2);
+  const isAddToCart = state.find((item) => item.id === product.id) ? true : false;
   return (
     <Container>
       <div className='product-page__path'>
@@ -120,8 +122,8 @@ const Product: React.FC = () => {
               <h4>Quantity :</h4>
               <Input min={1} max={50} onChange={handleChange} value={values.quantity} name='quantity' type='number' />
             </div>
-            <Button disabled={!product.inStock} type='submit'>
-              ADD TO CART
+            <Button disabled={!product.inStock || isAddToCart} type='submit'>
+              {isAddToCart ? 'YOU ALREADY ADD THIS' : 'ADD TO CART'}
             </Button>
           </form>
           <p className='product-page__warn-message'>

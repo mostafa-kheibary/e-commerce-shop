@@ -12,7 +12,7 @@ const ProductCard: React.FC<Props> = ({ productData }) => {
   const discountPrice = (productData.price - (productData.price * productData.discountPercent) / 100).toFixed(2);
 
   const handleOpenProduct = (): void => {
-    navigate(`/shop/product/${productData.id}`);
+    navigate(`/shop/${productData.id}`);
   };
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>): void => {

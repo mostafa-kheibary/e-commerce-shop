@@ -1,0 +1,50 @@
+.order-progress {
+  position: relative;
+  width: 60rem;
+  margin: 0 auto;
+}
+.order-progress-line {
+  height: 0.5em;
+  border-radius: 10rem;
+  transition: all 1000ms ease;
+  background-color: var(--primary-color);
+}
+.order-progress-line::after {
+  content: '';
+  border-radius: 10rem;
+  position: absolute;
+  width: 100%;
+  height: 0.5rem;
+  background-color: rgb(194, 194, 194);
+  z-index: -1;
+}
+.order-progress__text {
+  font-size: 1.4rem;
+  font-weight: 300;
+  position: absolute;
+  transform: translateX(-50%);
+  top: 1.5rem;
+  color: black;
+  text-decoration: none;
+}
+.order-progress__text::after {
+  content: '';
+  position: absolute;
+  top: -2.2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: white;
+  border:solid 0.3rem var(--primary-color);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.order-progress__text.order-progress-cart {
+  left: 2%;
+}
+.order-progress__text.order-progress-checkout {
+  left: 50%;
+}
+.order-progress__text.order-progress-finish {
+  left: 100%;
+}

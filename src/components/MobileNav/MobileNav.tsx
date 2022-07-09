@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import menuData from '../../data/menuData';
 import { Button } from '../';
 import './MobileNav.css';
@@ -39,9 +39,13 @@ const NavLink: React.FC = () => {
 
 const MobileNav: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { pathname } = useLocation();
   const hanldeOpenMenu = (): void => {
     setIsOpen(!isOpen);
   };
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
   return (
     <div className='mobile-nav'>
       <button onClick={hanldeOpenMenu} className='mobile-nav__button'>

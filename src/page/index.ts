@@ -3,4 +3,6 @@ import SignIn from './Sign-in/SignIn';
 import About from './About/About';
 import Profile from './Profile/Profile';
 import Product from './Product/Product';
-export { Home, SignIn, About, Profile, Product };
+import CheckOut from './CheckOut/CheckOut';
+import Cart from './Cart/Cart';
+export { Home, SignIn, About, Profile, Product, Cart, CheckOut };

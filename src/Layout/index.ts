@@ -9,6 +9,7 @@ import ProfileFavourit from './ProfileFavourit/ProfileFavourit';
 import ProfileSetting from './ProfileSetting/ProfileSetting';
 import ProductSlider from './ProductSlider/ProductSlider';
 import RelatedProduct from './RelatedProduct/RelatedProduct';
+import OrderProgressBar from './OrderProgressBar/OrderProgressBar';
 export {
   Header,
   Container,
@@ -21,4 +22,5 @@ export {
   ProfileSetting,
   ProductSlider,
   RelatedProduct,
+  OrderProgressBar,
 };

@@ -1,0 +1,91 @@
+import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Input, ShopCartItem } from '../../components';
+import { useCartContext } from '../../context/Cart/CartContext';
+import { Container } from '../../Layout';
+import emptyCartImage from '../../assets/image/cart.png';
+import './Cart.css';
+import useForm from '../../hook/useForm';
+import coponData from '../../data/copon.json';
+import useToast from '../../hook/useToast';
+
+const Cart: FC = () => {
+  const navigate = useNavigate();
+  const { state: cart } = useCartContext();
+  const { errorToast } = useToast();
+  const [copon, setCopon] = useState<{ text: string; percent: number }>({ text: '', percent: 0 });
+  const applyCopon = () => {
+    // if we dont have any copon set,add it
+    if (copon.percent <= 0) {
+      for (const copon in coponData) {
+        if (copon === values.copon) {
+          type ObjectKey = keyof typeof coponData;
+          setCopon({ text: copon, percent: coponData[copon as ObjectKey] });
+        } else {
+          errorToast('copon code is not correct', 'try " TEST " to get 20% discount');
+        }
+      }
+    }
+    //if we have copon , remove it
+    else {
+      values.copon = '';
+      setCopon({ text: '', percent: 0 });
+    }
+  };
+  const totalPrice: any = cart
+    .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.count), 0)
+    .toFixed(2);
+  const { handleSubmit, handleChange, values } = useForm(applyCopon);
+  const discount: any = ((totalPrice * copon.percent) / 100).toFixed(2);
+  return (
+    <Container>
+      <h2 className='cart-page__title'>Shoping cart</h2>
+      <div className='cart-page'>
+        <div className='cart-page__right'>
+          <div className='cart-page__right__summery-box'>
+            <h3 className='cart-page__right__summery-box__title'>summery</h3>
+            <p className='cart-page__right__summery-box__discription'>
+              you can use <span className='cart-page__test-important'>TEST</span> copon as test copon to see the
+              discount system
+            </p>
+            <h4 className='cart-page__right__summery-box__order-price'>Order Total : {totalPrice - discount} $</h4>
+            <h4 className='cart-page__right__summery-box__discount-status'>
+              {copon.percent > 0 ? `${copon.percent}% discount and you save ${discount} $` : ''}
+            </h4>
+            <form onSubmit={handleSubmit} className='cart-page__discount-copon'>
+              <Input
+                value={values.copon}
+                name='copon'
+                onChange={handleChange}
+                className='cart-page__discount-copon__input'
+                placeholder='copon (TEST)'
+              />
+              <Button type='submit' className='secoundry'>
+                {copon.percent > 0 ? 'Clear' : 'Apply'}
+              </Button>
+            </form>
+            <Button onClick={() => navigate('/checkout')} className='cart-page__submit'>
+              continue to checkout
+            </Button>
+          </div>
+        </div>
+        <div className='cart-page__left'>
+          {cart.length <= 0 && (
+            <>
+              <img src={emptyCartImage} alt='empty cart' className='cart-page__left__empty-cart' />
+              <h4 className='cart-page__left__empty-cart__title'>you dont have any item in your cart</h4>
+              <Button>Go shoping</Button>
+            </>
+          )}
+          <div className='cart-page__left-products'>
+            {cart.map((product) => (
+              <ShopCartItem key={product.id} item={product} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </Container>
+  );
+};
+
+export default Cart;
