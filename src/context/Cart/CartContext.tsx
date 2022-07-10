@@ -52,6 +52,10 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
     setStorage('SHOP_CART', newProducts);
   };
 
+  const clearCart = () => {
+    dispath({ type: 'CLEAR_CART' });
+    setStorage('SHOP_CART', []);
+  };
   const decreaseQuantity = (item: IProducts): void => {
     dispath({ type: 'DECRESE_COUNT', payload: item.id });
     const newProducts = state.map((item) => {
@@ -82,7 +86,9 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
   }, [state]);
 
   return (
-    <CartContext.Provider value={{ state, dispath, addToCart, deleteFromCart, increaseQuantity, decreaseQuantity }}>
+    <CartContext.Provider
+      value={{ state, dispath, clearCart, addToCart, deleteFromCart, increaseQuantity, decreaseQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -95,6 +101,7 @@ interface IReducer {
   deleteFromCart: (item: IProducts) => void;
   increaseQuantity: (item: IProducts) => void;
   decreaseQuantity: (item: IProducts) => void;
+  clearCart: () => void;
 }
 const useCartContext = (): IReducer => useContext(CartContext);
 

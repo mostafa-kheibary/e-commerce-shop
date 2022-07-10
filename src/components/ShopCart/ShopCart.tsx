@@ -8,6 +8,7 @@ import ShopCartItem from '../ShopCartItem/ShopCartItem';
 import emptyCartImage from '../../assets/image/cart.png';
 import './ShopCart.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useInvoiceContext } from '../../context/Invoice/InvoiceContext';
 
 const ShopCart: React.FC = () => {
   const { state, dispath } = useCartContext();
@@ -15,11 +16,11 @@ const ShopCart: React.FC = () => {
   const { pathname } = useLocation();
   const [addAnimation, setAddAnimation] = useState<boolean>(false);
   const navigate = useNavigate();
+  const {
+    state: { totalPrice },
+  } = useInvoiceContext();
 
   const { getStorage } = useLocalStorage();
-  const totalPrice = state
-    .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.quantity), 0)
-    .toFixed(2);
 
   useEffect(() => {
     const fethProducts = () => {
@@ -28,12 +29,14 @@ const ShopCart: React.FC = () => {
     };
     fethProducts();
   }, []);
+
   useEffect(() => {
     setAddAnimation(true);
     setTimeout(() => {
       setAddAnimation(false);
     }, 1000);
   }, [state]);
+
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);

@@ -18,7 +18,7 @@ const InvoiceContextProvider: FC<IProps> = ({ children }) => {
 
 interface IReducer {
   state: any;
-  setInvoice: (data: void) => void;
+  setInvoice: (data: any) => void;
 }
 const useInvoiceContext = (): IReducer => useContext(InvoiceContext);
 
