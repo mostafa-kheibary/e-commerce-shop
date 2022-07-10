@@ -19,6 +19,7 @@
 }
 html {
   font-size: 10px;
+  scroll-behavior: smooth;
 }
 body::-webkit-scrollbar {
   width: 1.5rem;

@@ -5,6 +5,8 @@ import { ToastContextProvider } from './context/Toast/ToastContext';
 import App from './App';
 import './style/globalStyle.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { InvoiceContextProvider } from './context/Invoice/InvoiceContext';
+import { CartContextProvider } from './context/Cart/CartContext';
 
 const UserAuth = () => {
   const { dispath } = useUserContext();
@@ -25,10 +27,14 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <UserContextProvider>
     <ToastContextProvider>
-      <UserAuth />
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <InvoiceContextProvider>
+        <CartContextProvider>
+          <UserAuth />
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </CartContextProvider>
+      </InvoiceContextProvider>
     </ToastContextProvider>
   </UserContextProvider>
 );

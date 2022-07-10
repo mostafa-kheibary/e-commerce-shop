@@ -12,14 +12,14 @@ const cartReducer = (state: IProducts[], action: IAction) => {
     case 'INCRESE_COUNT':
       return state.map((item) => {
         if (item.id === action.payload) {
-          return { ...item, count: item.count + 1 };
+          return { ...item, quantity: item.quantity + 1 };
         }
         return item;
       });
     case 'DECRESE_COUNT':
       return state.map((item) => {
         if (item.id === action.payload) {
-          return { ...item, count: item.count - 1 };
+          return { ...item, quantity: item.quantity - 1 };
         }
         return item;
       });

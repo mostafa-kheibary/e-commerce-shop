@@ -18,8 +18,9 @@ const ProfileSideBar: React.FC = () => {
     <div className='profile-sidebar'>
       <h2 className='profile-sidebar__title'>Hi {user.displayName}</h2>
       <div className='profile-sidebar__links'>
-        {linkData.map((link) => (
+        {linkData.map((link, i) => (
           <Link
+            key={i}
             className={`profile-sidebar__link ${window.location.pathname.split('/')[2] === link.to ? 'active' : ''}`}
             to={link.to}
           >

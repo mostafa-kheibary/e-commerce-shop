@@ -56,7 +56,6 @@ const SignIn: React.FC = () => {
     } catch (error) {
       setLoading(false);
       errorToast('canrt get code', 'try again and get new code ');
-      console.log(error);
     }
   };
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
@@ -66,7 +65,6 @@ const SignIn: React.FC = () => {
   const handleSubmitFinal = async (code: number) => {
     try {
       setLoading(true);
-      console.log(verifyCode);
       const respone = await window.confirmationResult.confirm(code);
       const user = respone.user;
       const userDoc = await getDoc(doc(db, 'users', user.uid));
@@ -85,7 +83,6 @@ const SignIn: React.FC = () => {
       }
       dispath({ type: 'LOG_IN', payload: user });
       setLoading(false);
-      console.log(user);
     } catch (error: any) {
       setLoading(false);
       if (error.toString().includes('auth/invalid-verification-code')) {
@@ -113,7 +110,6 @@ const SignIn: React.FC = () => {
       navigate('/profile');
       succsesToast('Login succsesfully', 'Now you can see your information in profile tabs');
     } catch (error) {
-      console.log(error);
       errorToast('somthing went wrong', 'cant add user name try again');
     }
   };

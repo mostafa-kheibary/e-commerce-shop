@@ -15,7 +15,7 @@ const ShopCartItem: React.FC<IProps> = ({ item }) => {
 
   return (
     <div className='shop-cart__item'>
-      <p className='shop-cart__item-count'>{item.count}</p>
+      <p className='shop-cart__item-count'>{item.quantity}</p>
       <div className='shop-cart__item__counter'>
         <Button onClick={() => increaseQuantity(item)} className='shop-cart__item__counter-button secoundry'>
           +

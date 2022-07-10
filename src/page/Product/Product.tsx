@@ -19,6 +19,7 @@ const Product: React.FC = () => {
   const { addToCart, state } = useCartContext();
   const [product, setProduct] = useState<IProducts | null>(null);
   const { errorToast } = useToast();
+  
   const handleAddToCart = () => {
     if (+values.quantity >= 1 && product?.inStock) {
       addToCart(product!, +values.quantity);
@@ -28,6 +29,7 @@ const Product: React.FC = () => {
   };
 
   useEffect(() => {
+    window.scroll(0, 0);
     const fethProduct = async () => {
       setProduct(null);
       try {

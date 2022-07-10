@@ -18,7 +18,7 @@ const ShopCart: React.FC = () => {
 
   const { getStorage } = useLocalStorage();
   const totalPrice = state
-    .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.count), 0)
+    .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.quantity), 0)
     .toFixed(2);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const ShopCart: React.FC = () => {
       <div onClick={() => setIsOpen(!isOpen)} className='cart'>
         <div className='cart-icons'>
           <span className={`cart-quantity ${addAnimation ? 'active' : ''}`}>
-            {state.reduce((prev, pro) => (prev += pro.count), 0)}
+            {state.reduce((prev, pro) => (prev += pro.quantity), 0)}
           </span>
           <MdOutlineShoppingBag className='cart-icon' />
         </div>

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input, ShopCartItem } from '../../components';
 import { useCartContext } from '../../context/Cart/CartContext';
@@ -8,34 +8,60 @@ import './Cart.css';
 import useForm from '../../hook/useForm';
 import coponData from '../../data/copon.json';
 import useToast from '../../hook/useToast';
+import { useInvoiceContext } from '../../context/Invoice/InvoiceContext';
+import useLocalStorage from '../../hook/useLocalStorage';
 
 const Cart: FC = () => {
   const navigate = useNavigate();
   const { state: cart } = useCartContext();
   const { errorToast } = useToast();
+  const { setStorage, getStorage } = useLocalStorage();
   const [copon, setCopon] = useState<{ text: string; percent: number }>({ text: '', percent: 0 });
+  const { state: invoice, setInvoice } = useInvoiceContext();
+
+  const totalPrice: any = cart
+    .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.quantity), 0)
+    .toFixed(2);
+
+  const submitToCheckout = () => {
+    navigate('/checkout');
+  };
+
+  useEffect(() => {
+    const localStorageCopon = getStorage('DISCOUNT_COPON');
+    if (localStorageCopon.percent > 0) {
+      setCopon(localStorageCopon);
+      console.log(localStorageCopon);
+      values.copon = localStorageCopon.text;
+    }
+  }, []);
   const applyCopon = () => {
     // if we dont have any copon set,add it
     if (copon.percent <= 0) {
-      for (const copon in coponData) {
-        if (copon === values.copon) {
+      for (const cop in coponData) {
+        if (cop === values.copon) {
           type ObjectKey = keyof typeof coponData;
-          setCopon({ text: copon, percent: coponData[copon as ObjectKey] });
-        } else {
-          errorToast('copon code is not correct', 'try " TEST " to get 20% discount');
+          setCopon({ text: cop, percent: coponData[cop as ObjectKey] });
+          setStorage('DISCOUNT_COPON', { text: cop, percent: coponData[cop as ObjectKey] });
+          const coponDiscount: any = ((totalPrice * coponData[cop as ObjectKey]) / 100).toFixed(2);
+          setInvoice({ ...invoice, totalPrice: +(+totalPrice - +coponDiscount).toFixed(2) });
         }
+      }
+      if (!coponData.hasOwnProperty(values.copon)) {
+        errorToast('copon code is not correct', 'try " TEST " to get 20% discount');
       }
     }
     //if we have copon , remove it
     else {
       values.copon = '';
       setCopon({ text: '', percent: 0 });
+      setInvoice({ ...invoice, totalPrice: +totalPrice });
+      setStorage('DISCOUNT_COPON', { text: '', percent: 0 });
     }
   };
-  const totalPrice: any = cart
-    .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.count), 0)
-    .toFixed(2);
-  const { handleSubmit, handleChange, values } = useForm(applyCopon);
+
+  const { handleSubmit, handleChange, values } = useForm(applyCopon, { copon: copon.text });
+
   const discount: any = ((totalPrice * copon.percent) / 100).toFixed(2);
   return (
     <Container>
@@ -48,7 +74,9 @@ const Cart: FC = () => {
               you can use <span className='cart-page__test-important'>TEST</span> copon as test copon to see the
               discount system
             </p>
-            <h4 className='cart-page__right__summery-box__order-price'>Order Total : {totalPrice - discount} $</h4>
+            <h4 className='cart-page__right__summery-box__order-price'>
+              Order Total : {(totalPrice - discount).toFixed(2)} $
+            </h4>
             <h4 className='cart-page__right__summery-box__discount-status'>
               {copon.percent > 0 ? `${copon.percent}% discount and you save ${discount} $` : ''}
             </h4>
@@ -56,6 +84,7 @@ const Cart: FC = () => {
               <Input
                 value={values.copon}
                 name='copon'
+                disabled={copon.text !== ''}
                 onChange={handleChange}
                 className='cart-page__discount-copon__input'
                 placeholder='copon (TEST)'
@@ -64,7 +93,7 @@ const Cart: FC = () => {
                 {copon.percent > 0 ? 'Clear' : 'Apply'}
               </Button>
             </form>
-            <Button onClick={() => navigate('/checkout')} className='cart-page__submit'>
+            <Button onClick={submitToCheckout} className='cart-page__submit'>
               continue to checkout
             </Button>
           </div>
@@ -74,7 +103,7 @@ const Cart: FC = () => {
             <>
               <img src={emptyCartImage} alt='empty cart' className='cart-page__left__empty-cart' />
               <h4 className='cart-page__left__empty-cart__title'>you dont have any item in your cart</h4>
-              <Button>Go shoping</Button>
+              <Button onClick={() => navigate('/shop')}>Go shoping</Button>
             </>
           )}
           <div className='cart-page__left-products'>

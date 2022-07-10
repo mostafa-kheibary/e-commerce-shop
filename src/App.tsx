@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Toast from './components/Toast/Toast';
-import { CartContextProvider } from './context/Cart/CartContext';
 import { Header, ProfileDetails, ProfileFavourit, ProfileOrder, ProfileSetting } from './Layout';
 import Order from './Layout/Order/Order';
 import { About, Home, Product, Profile, SignIn } from './page';
@@ -9,7 +8,6 @@ import PrivetRoute from './routes/PrivetRoute';
 
 const App: React.FC = () => {
   return (
-    <CartContextProvider>
       <Router>
         <Header />
         <Toast />
@@ -34,7 +32,6 @@ const App: React.FC = () => {
           </Routes>
         </div>
       </Router>
-    </CartContextProvider>
   );
 };
 
