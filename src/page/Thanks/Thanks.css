@@ -1,0 +1,34 @@
+.thanks-page {
+  text-align: center;
+}
+.thanks-page__container {
+  margin-top: 5rem;
+}
+.thanks-page__title {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+.thanks-page__discription {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+.thanks-page__order {
+  text-align: center;
+}
+.thanks-page__order-title {
+  font-size: 2rem;
+  font-weight: 400;
+}
+.thanks-page__order-discription {
+  margin-top: 0.5rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.thanks-page__line {
+  border: none;
+  background-color: rgb(204, 204, 204);
+  height: 1px;
+  width: 100%;
+  margin: 2rem 0;
+}

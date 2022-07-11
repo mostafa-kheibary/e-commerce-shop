@@ -13,6 +13,7 @@
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
   padding: 2.5rem;
   width: 100%;
+  height: fit-content;
 }
 
 .checkout__left__title {
@@ -30,8 +31,8 @@
   gap: 2.5rem;
 }
 .checkout__left__inputs__button {
-  width: 25rem;
-  margin-top: 1rem;
+  width: 100%;
+  margin-top: 2rem;
 }
 .checkout__left__input-short {
   width: 50%;
@@ -80,12 +81,11 @@
 .checkout__right__subtotal {
   margin-top: 1rem;
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 300;
 }
 .checkout__right__totalPrice {
   font-size: 1.8rem;
   font-weight: 500;
-  margin-top: 1rem;
 }
 .checkout__right__line {
   border: none;

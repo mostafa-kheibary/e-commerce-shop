@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Cart, CheckOut } from '../../page';
+import { Cart, CheckOut, Thanks } from '../../page';
 import OrderProgressBar from '../OrderProgressBar/OrderProgressBar';
 import './Order.css';
 
@@ -10,7 +10,7 @@ const Order: FC = () => {
   return (
     <div className='order'>
       <OrderProgressBar />
-      {pathLoc === 'cart' ? <Cart /> : pathLoc === 'checkout' ? <CheckOut /> : ''}
+      {pathLoc === 'cart' ? <Cart /> : pathLoc === 'checkout' ? <CheckOut /> : pathLoc === 'thanks' ? <Thanks /> : ''}
     </div>
   );
 };

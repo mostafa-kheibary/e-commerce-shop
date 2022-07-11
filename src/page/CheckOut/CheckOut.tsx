@@ -16,7 +16,7 @@ import useLocalStorage from '../../hook/useLocalStorage';
 const CheckOut: FC = () => {
   const { isAuth, loading } = useAuth();
   const { state: cart, clearCart } = useCartContext();
-  const { state: invoice, setInvoice } = useInvoiceContext();
+  const { state: invoice ,setInvoice} = useInvoiceContext();
   const { setStorage } = useLocalStorage();
   const navigate = useNavigate();
   const { errorToast } = useToast();
@@ -31,21 +31,23 @@ const CheckOut: FC = () => {
       }
     }
   }, [loading, isAuth]);
-
   const handleOrder = async () => {
     if (isAuth) {
-      try {
-        const invoiceData: any = { ...invoice, ...values, userUid: user.uid };
-        const docRef = doc(db, 'users', user.uid);
-        await updateDoc(docRef, {
-          purchuses: arrayUnion(invoiceData),
-        });
-        setInvoice({});
-        clearCart();
-        setStorage('DISCOUNT_COPON', { text: '', percent: 0 });
-        navigate('/');
-      } catch (error) {
-        errorToast('cant place your order', 'make sure that put evrything right');
+      if (cart.length > 0) {
+        try {
+          const orderId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+          const invoiceData: any = { ...invoice, ...values, userUid: user.uid, orderId };
+          setInvoice(invoiceData);
+          const docRef = doc(db, 'users', user.uid);
+          await updateDoc(docRef, {
+            purchuses: arrayUnion(invoiceData),
+          });
+          clearCart();
+          setStorage('DISCOUNT_COPON', { text: '', percent: 0 });
+          navigate('/thanks', { state: { inApp: true }, replace: true });
+        } catch (error) {
+          errorToast('cant place your order', 'make sure that put evrything right');
+        }
       }
     } else {
       errorToast('you are not login', 'please log in to your account to continue');
@@ -114,9 +116,6 @@ const CheckOut: FC = () => {
               className='checkout__left__input-short'
               placeholder='Phone Number'
             />
-            <Button disabled={!isAuth} className='checkout__left__inputs__button'>
-              Order
-            </Button>
           </form>
         </div>
         <div className='checkout__right'>
@@ -143,6 +142,13 @@ const CheckOut: FC = () => {
               Subtotal ({cart.reduce((prev, product) => (prev += product.quantity), 0)})
             </h4>
             <h4 className='checkout__right__totalPrice'>Toatal Order : {invoice.totalPrice} $</h4>
+            <Button
+              onClick={handleOrder}
+              disabled={!isAuth || cart.length <= 0}
+              className='checkout__left__inputs__button'
+            >
+              Order
+            </Button>
           </div>
         </div>
       </div>

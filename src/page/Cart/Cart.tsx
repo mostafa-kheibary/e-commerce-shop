@@ -24,7 +24,11 @@ const Cart: FC = () => {
     .toFixed(2);
 
   const submitToCheckout = () => {
-    navigate('/checkout');
+    if (cart.length > 0) {
+      navigate('/checkout');
+    } else {
+      errorToast('cant continue to checkout', 'your cart is empty');
+    }
   };
 
   useEffect(() => {
@@ -93,7 +97,7 @@ const Cart: FC = () => {
                 {copon.percent > 0 ? 'Clear' : 'Apply'}
               </Button>
             </form>
-            <Button onClick={submitToCheckout} className='cart-page__submit'>
+            <Button disabled={cart.length <= 0} onClick={submitToCheckout} className='cart-page__submit'>
               continue to checkout
             </Button>
           </div>

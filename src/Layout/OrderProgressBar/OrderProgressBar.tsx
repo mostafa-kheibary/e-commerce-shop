@@ -3,10 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import './OrderProgressBar.css';
 const OrderProgressBar: FC = () => {
   const { pathname } = useLocation();
-  const per = pathname.split('/')[1] === 'cart' ? 2 : pathname.split('/')[1] === 'checkout' ? 50 : 0;
+  const path = pathname.split('/')[1];
+  const percent = path === 'cart' ? 2 : path === 'checkout' ? 50 : path === 'thanks' ? 100 : 0;
   return (
     <div className='order-progress'>
-      <div className='order-progress-line' style={{ width: `${per}%` }}></div>
+      <div className='order-progress-line' style={{ width: `${percent}%` }}></div>
       <Link to='/cart' className='order-progress__text order-progress-cart'>
         Cart
       </Link>
