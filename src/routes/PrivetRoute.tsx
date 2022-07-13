@@ -1,4 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { LoaderPage } from '../components';
 import useAuth from '../hook/useAuth';
 
 interface IProps {
@@ -7,7 +8,7 @@ interface IProps {
 const PrivetRoute: React.FC<IProps> = () => {
   const { loading, isAuth } = useAuth();
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoaderPage />;
   }
   return isAuth ? <Outlet /> : <Navigate to='/sign-in' />;
 };

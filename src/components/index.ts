@@ -6,4 +6,6 @@ import ProductCard from './ProductCard/ProductCard';
 import Login from './Login/Login';
 import Input from './Input/Input';
 import ShopCartItem from './ShopCartItem/ShopCartItem';
-export { Nav, ShopCart, MobileNav, Button, ProductCard, Login, Input, ShopCartItem };
+import Loader from './Loader/Loader';
+import LoaderPage from './LoaderPage/LoaderPage';
+export { Nav, ShopCart, MobileNav, Button, ProductCard, Login, Input, ShopCartItem, Loader, LoaderPage };

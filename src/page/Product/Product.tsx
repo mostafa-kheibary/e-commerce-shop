@@ -8,7 +8,7 @@ import useForm from '../../hook/useForm';
 import { TiTick } from 'react-icons/ti';
 import { RiCloseFill } from 'react-icons/ri';
 import './Product.css';
-import { Button, Input } from '../../components';
+import { Button, Input, Loader } from '../../components';
 import useToast from '../../hook/useToast';
 import { useCartContext } from '../../context/Cart/CartContext';
 
@@ -19,7 +19,7 @@ const Product: React.FC = () => {
   const { addToCart, state } = useCartContext();
   const [product, setProduct] = useState<IProducts | null>(null);
   const { errorToast } = useToast();
-  
+
   const handleAddToCart = () => {
     if (+values.quantity >= 1 && product?.inStock) {
       addToCart(product!, +values.quantity);
@@ -150,7 +150,7 @@ const Product: React.FC = () => {
       <hr className='product-page__line' />
       <div className='product-page__sugested-product'>
         <h4 className='product-page__sugested-product__title'>related producs</h4>
-        <Suspense fallback={<h2>loading</h2>}>
+        <Suspense fallback={<Loader />}>
           <RelatedProduct catagory={product.catagory} currentProductId={product.id} />
         </Suspense>
       </div>

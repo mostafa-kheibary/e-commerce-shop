@@ -1,8 +1,8 @@
 .order-page__orders {
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
 }
 .order-page__orders__order {
   position: relative;
@@ -47,4 +47,8 @@
   align-items: center;
   bottom: 2rem;
   right: 2rem;
+}
+.order-page__title {
+  font-size: 2rem;
+  font-weight: 500;
 }
