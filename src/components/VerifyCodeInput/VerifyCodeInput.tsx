@@ -6,7 +6,7 @@ interface IProps {
   onCodeChange: (code: string) => void;
 }
 const VerifyCodeInput: React.FC<IProps> = ({ onCodeChange }) => {
-  const [verifyCode, setVerifyCode] = useState(['', '', '', '','','']);
+  const [verifyCode, setVerifyCode] = useState(['', '', '', '', '', '']);
   const inputsRef = useRef<HTMLDivElement>(null);
   const inputData = [{ name: 0 }, { name: 1 }, { name: 2 }, { name: 3 }, { name: 4 }, { name: 5 }];
 
@@ -39,6 +39,7 @@ const VerifyCodeInput: React.FC<IProps> = ({ onCodeChange }) => {
     <div ref={inputsRef} className='verify-code-inputs'>
       {inputData.map((input) => (
         <Input
+          type='number'
           onKeyDown={handleDelete}
           name={input.name.toString()}
           key={input.name}

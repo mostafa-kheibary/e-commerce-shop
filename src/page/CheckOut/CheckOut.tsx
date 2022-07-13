@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
 import { updateDoc, doc, arrayUnion } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 import { Button, Input } from '../../components';
 import { useCartContext } from '../../context/Cart/CartContext';
 import { useInvoiceContext } from '../../context/Invoice/InvoiceContext';
@@ -16,7 +17,7 @@ import useLocalStorage from '../../hook/useLocalStorage';
 const CheckOut: FC = () => {
   const { isAuth, loading } = useAuth();
   const { state: cart, clearCart } = useCartContext();
-  const { state: invoice ,setInvoice} = useInvoiceContext();
+  const { state: invoice, setInvoice } = useInvoiceContext();
   const { setStorage } = useLocalStorage();
   const navigate = useNavigate();
   const { errorToast } = useToast();
@@ -36,7 +37,7 @@ const CheckOut: FC = () => {
       if (cart.length > 0) {
         try {
           const orderId = Date.now().toString(36) + Math.random().toString(36).substr(2);
-          const invoiceData: any = { ...invoice, ...values, userUid: user.uid, orderId };
+          const invoiceData: any = { ...invoice, ...values, userUid: user.uid, orderId, timeStamp: Timestamp.now() };
           setInvoice(invoiceData);
           const docRef = doc(db, 'users', user.uid);
           await updateDoc(docRef, {
