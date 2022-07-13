@@ -4,6 +4,7 @@ import { Slider } from '../../Layout';
 const Home: React.FC = () => {
   const NewProduct = lazy(() => import('../../Layout/NewProducts/NewProduct'));
   const Container = lazy(() => import('../../Layout/Container/Container'));
+  const Footer = lazy(() => import('../../Layout/Footer/Footer'));
   return (
     <div className='home'>
       <Slider />
@@ -11,6 +12,7 @@ const Home: React.FC = () => {
         <Container>
           <NewProduct />
         </Container>
+        <Footer />
       </Suspense>
     </div>
   );

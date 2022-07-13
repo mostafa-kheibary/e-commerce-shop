@@ -10,6 +10,7 @@ import ProfileSetting from './ProfileSetting/ProfileSetting';
 import ProductSlider from './ProductSlider/ProductSlider';
 import RelatedProduct from './RelatedProduct/RelatedProduct';
 import OrderProgressBar from './OrderProgressBar/OrderProgressBar';
+import Footer from './Footer/Footer';
 export {
   Header,
   Container,
@@ -23,4 +24,5 @@ export {
   ProductSlider,
   RelatedProduct,
   OrderProgressBar,
+  Footer,
 };
