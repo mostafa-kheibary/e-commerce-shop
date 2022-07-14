@@ -2,6 +2,7 @@ import { getAuth, updateEmail, updateProfile } from 'firebase/auth';
 import { updateDoc, doc } from 'firebase/firestore';
 import { Button, Input } from '../../components';
 import { db } from '../../config/firebase.config';
+import { useLoader } from '../../context/Loader/LoaderContext';
 import { useUserContext } from '../../context/User/UserContext';
 import useForm from '../../hook/useForm';
 import useToast from '../../hook/useToast';
@@ -9,6 +10,7 @@ import './ProfileDetails.css';
 
 const ProfileDetails: React.FC = () => {
   const auth = getAuth();
+  const { setLoader } = useLoader();
   const { errorToast, succsesToast } = useToast();
   const {
     state: { user },
@@ -16,6 +18,7 @@ const ProfileDetails: React.FC = () => {
   } = useUserContext();
   const handleUpdateProfile = async () => {
     try {
+      setLoader(true);
       const docRef = doc(db, 'users', auth.currentUser!.uid);
       await Promise.all([
         await updateProfile(auth.currentUser!, {
@@ -24,10 +27,12 @@ const ProfileDetails: React.FC = () => {
         await updateEmail(auth.currentUser!, values.email),
         await updateDoc(docRef, { name: values.name, email: values.email }),
       ]);
+      setLoader(false);
       dispath({ type: 'LOG_IN', payload: auth.currentUser });
       succsesToast('profile succsesfuly updated', '');
     } catch (error) {
       errorToast('cant update the profile', 'try again and make sure about your network');
+      setLoader(false);
     }
   };
 

@@ -9,4 +9,20 @@ import ShopCartItem from './ShopCartItem/ShopCartItem';
 import Loader from './Loader/Loader';
 import LoaderPage from './LoaderPage/LoaderPage';
 import GoogleAuth from './GoogleAuth/GoogleAuth';
-export { Nav, ShopCart, MobileNav, Button, ProductCard, Login, Input, ShopCartItem, Loader, LoaderPage, GoogleAuth };
+import LoaderScreen from './LoaderScreen/LoaderScreen';
+import Toast from './Toast/Toast';
+export {
+  Nav,
+  ShopCart,
+  MobileNav,
+  Button,
+  ProductCard,
+  Login,
+  Input,
+  ShopCartItem,
+  Loader,
+  LoaderPage,
+  GoogleAuth,
+  LoaderScreen,
+  Toast,
+};

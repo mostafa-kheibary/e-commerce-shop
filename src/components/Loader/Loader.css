@@ -20,6 +20,12 @@
   background: var(--primary-color);
   margin: -4px 0 0 -4px;
 }
+.lds-roller.white div::after {
+  background-color: white;
+}
+.lds-roller.primary div::after {
+  background-color: var(--primary-color);
+}
 .lds-roller div:nth-child(1) {
   animation-delay: -0.036s;
 }

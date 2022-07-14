@@ -1,9 +1,12 @@
 import { FC } from 'react';
 import './Loader.css';
 
-const Loader: FC = () => {
+interface IProps {
+  color?: 'white' | 'primary';
+}
+const Loader: FC<IProps> = ({ color = 'primary' }) => {
   return (
-    <div className='lds-roller'>
+    <div className={`lds-roller ${color}`}>
       <div></div>
       <div></div>
       <div></div>

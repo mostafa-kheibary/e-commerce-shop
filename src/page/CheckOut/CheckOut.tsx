@@ -117,10 +117,7 @@ const CheckOut: FC = () => {
               className='checkout__left__input-short'
               placeholder='Phone Number'
             />
-            <Button
-              onClick={handleOrder}
-              className='checkout__left__inputs__button'
-            >
+            <Button type='submit' className='checkout__left__inputs__button'>
               Order
             </Button>
           </form>

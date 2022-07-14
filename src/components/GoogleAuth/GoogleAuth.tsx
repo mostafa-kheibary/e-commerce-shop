@@ -7,14 +7,16 @@ import { db } from '../../config/firebase.config';
 import { useNavigate } from 'react-router-dom';
 import useToast from '../../hook/useToast';
 import { useUserContext } from '../../context/User/UserContext';
+import { useLoader } from '../../context/Loader/LoaderContext';
 
 const GoogleAuth: FC = () => {
   const naigate = useNavigate();
   const { errorToast } = useToast();
   const { dispath } = useUserContext();
-
+  const { setLoader } = useLoader();
   const handleAuth = async () => {
     try {
+      setLoader(true);
       const provider = new GoogleAuthProvider();
       const auth = getAuth();
       const result = await signInWithPopup(auth, provider);
@@ -29,9 +31,11 @@ const GoogleAuth: FC = () => {
           favourite: [],
         });
       }
+      setLoader(false);
       dispath({ type: 'LOG_IN', payload: result.user });
       naigate('/profile');
     } catch (error) {
+      setLoader(false);
       errorToast('cant login with google', 'please try again to log in');
     }
   };

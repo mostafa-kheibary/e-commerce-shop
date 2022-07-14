@@ -26,7 +26,11 @@ const ProfileOrder: React.FC = () => {
   return (
     <div className='order-page'>
       <h2 className='order-page__title'>My Order</h2>
-      {loading && <Loader />}
+      {loading ? (
+        <Loader />
+      ) : (
+        orders.length <= 0 && <h2 className='order-page__no-order'>Nothing here, you dont have any order yet</h2>
+      )}
       <div className='order-page__orders'>
         {orders.map((order: any, i) => (
           <div key={i} className='order-page__orders__order'>

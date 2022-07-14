@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Toast from './components/Toast/Toast';
+import { LoaderScreen, Toast } from './components';
 import { Header, ProfileDetails, ProfileFavourit, ProfileOrder, ProfileSetting } from './Layout';
 import Order from './Layout/Order/Order';
 import { About, Home, Product, Profile, SignIn } from './page';
@@ -11,6 +11,7 @@ const App: React.FC = () => {
     <Router>
       <Header />
       <Toast />
+      <LoaderScreen />
       <div style={{ marginTop: '8rem' }}>
         <Routes>
           <Route path='/' element={<Home />} />

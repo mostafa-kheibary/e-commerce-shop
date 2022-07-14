@@ -7,6 +7,7 @@ import './style/globalStyle.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { InvoiceContextProvider } from './context/Invoice/InvoiceContext';
 import { CartContextProvider } from './context/Cart/CartContext';
+import { LoaderContextProvider } from './context/Loader/LoaderContext';
 
 const UserAuth = () => {
   const { dispath } = useUserContext();
@@ -29,10 +30,12 @@ root.render(
     <ToastContextProvider>
       <InvoiceContextProvider>
         <CartContextProvider>
-          <UserAuth />
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
+          <LoaderContextProvider>
+            <UserAuth />
+            <React.StrictMode>
+              <App />
+            </React.StrictMode>
+          </LoaderContextProvider>
         </CartContextProvider>
       </InvoiceContextProvider>
     </ToastContextProvider>
