@@ -1,4 +1,4 @@
-.profile-details{
+.profile-details {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -14,16 +14,28 @@
   font-size: 1.5rem;
   font-weight: 300;
 }
+.profile-details__personal-info__title-email {
+  margin-top: 2rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
 .profile-details__line {
-  margin: 0.5rem;
+  margin: 1rem;
   width: 100%;
   height: 2px;
   border: none;
-  background-color: rgba(0, 0, 0, 0.048)
+  background-color: rgba(0, 0, 0, 0.048);
 }
 .profile-details__form {
   margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
+}
+.profile-details__form__inputs {
+  display: flex;
+  gap: 2rem;
+}
+.profile-details__submit-button {
+  display: block;
+  margin-top: 2rem;
+  width: 20rem;
 }

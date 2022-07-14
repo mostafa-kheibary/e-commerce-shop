@@ -1,12 +1,40 @@
-
+import { getAuth, updateEmail, updateProfile } from 'firebase/auth';
+import { updateDoc, doc } from 'firebase/firestore';
 import { Button, Input } from '../../components';
+import { db } from '../../config/firebase.config';
 import { useUserContext } from '../../context/User/UserContext';
+import useForm from '../../hook/useForm';
+import useToast from '../../hook/useToast';
 import './ProfileDetails.css';
 
 const ProfileDetails: React.FC = () => {
+  const auth = getAuth();
+  const { errorToast, succsesToast } = useToast();
   const {
     state: { user },
+    dispath,
   } = useUserContext();
+  const handleUpdateProfile = async () => {
+    try {
+      const docRef = doc(db, 'users', auth.currentUser!.uid);
+      await Promise.all([
+        await updateProfile(auth.currentUser!, {
+          displayName: values.name,
+        }),
+        await updateEmail(auth.currentUser!, values.email),
+        await updateDoc(docRef, { name: values.name, email: values.email }),
+      ]);
+      dispath({ type: 'LOG_IN', payload: auth.currentUser });
+      succsesToast('profile succsesfuly updated', '');
+    } catch (error) {
+      errorToast('cant update the profile', 'try again and make sure about your network');
+    }
+  };
+
+  const { handleChange, handleSubmit, values } = useForm(handleUpdateProfile, {
+    name: user.displayName || '',
+    email: user.email || '',
+  });
 
   return (
     <div className='profile-details'>
@@ -14,18 +42,21 @@ const ProfileDetails: React.FC = () => {
       <div className='profile-details__personal-info'>
         <h4 className='profile-details__personal-info__title'>personal information</h4>
         <hr className='profile-details__line' />
-        <form className='profile-details__form'>
-          <Input placeholder='name' type='text' value={user.displayName} />
-          <Input placeholder='phone number' type='text' value={user.phoneNumber} />
-          <Button>Update</Button>
-        </form>
-      </div>
-      <div className='profile-details__personal-info'>
-        <h4 className='profile-details__personal-info__title'>Email addres</h4>
-        <hr className='profile-details__line' />
-        <form className='profile-details__form'>
-          <Input placeholder='email' type='email' />
-          <Button>Add Email</Button>
+        <form onSubmit={handleSubmit} className='profile-details__form'>
+          <div className='profile-details__form__inputs'>
+            <Input required onChange={handleChange} name='name' placeholder='name' type='text' value={values.name} />
+            <Input
+              required
+              name='email'
+              onChange={handleChange}
+              value={values.email}
+              placeholder='email'
+              type='email'
+            />
+          </div>
+          <Button className='profile-details__submit-button' type='submit'>
+            Update
+          </Button>
         </form>
       </div>
     </div>

@@ -2,6 +2,8 @@ import { getAuth, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components';
 import { useUserContext } from '../../context/User/UserContext';
+import './ProfileSetting.css';
+
 const ProfileSetting: React.FC = () => {
   const { dispath } = useUserContext();
   const auth = getAuth();
@@ -16,14 +18,17 @@ const ProfileSetting: React.FC = () => {
     }
   };
   return (
-    <div>
-      <h2>Acount setting</h2>
-      <h4>log out from account</h4>
-      <Button onClick={handleLogOut}>Log out</Button>
-      <hr />
-      <h4>delete your account</h4>
-      <p>it will clear all your orders, user log on server </p>
-      <Button>delete Acount</Button>
+    <div className='profile-setting'>
+      <div className='profile-setting__head'>
+        <h2 className='profile-setting__title'>Acount setting</h2>
+        <Button onClick={handleLogOut}>Log out</Button>
+      </div>
+      <hr className='profile-setting__line' />
+      <div className='profile-setting__content'>
+        <h4 className='profile-setting__text'>delete your account</h4>
+        <p className='profile-setting__discription'>it will clear all your orders, user log on server </p>
+        <Button className='profile-setting__delete-button'>delete Acount</Button>
+      </div>
     </div>
   );
 };

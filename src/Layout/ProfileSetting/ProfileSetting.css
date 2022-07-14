@@ -1,0 +1,36 @@
+.profile-setting__title {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.profile-setting__text {
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+.profile-setting__discription {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+.profile-setting__content {
+  margin-top: 2rem;
+}
+.profile-setting__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile-setting__line {
+  border: none;
+  background-color: rgb(204, 204, 204);
+  width: 100%;
+  height: 0.1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.profile-setting__delete-button {
+  margin-top: 1rem;
+  background-color: rgb(214, 33, 33);
+}
+.profile-setting__delete-button:hover {
+  background-color: rgb(187, 29, 29);
+}

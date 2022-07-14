@@ -1,0 +1,19 @@
+.google-auth__wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background-color: white;
+  box-shadow: 1rem 0 2rem rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.google-auth__wrapper:hover {
+  background-color: rgb(247, 247, 247);
+}
+.google-auth__image {
+  width: 4rem;
+}

@@ -117,6 +117,12 @@ const CheckOut: FC = () => {
               className='checkout__left__input-short'
               placeholder='Phone Number'
             />
+            <Button
+              onClick={handleOrder}
+              className='checkout__left__inputs__button'
+            >
+              Order
+            </Button>
           </form>
         </div>
         <div className='checkout__right'>
@@ -143,13 +149,6 @@ const CheckOut: FC = () => {
               Subtotal ({cart.reduce((prev, product) => (prev += product.quantity), 0)})
             </h4>
             <h4 className='checkout__right__totalPrice'>Toatal Order : {invoice.totalPrice} $</h4>
-            <Button
-              onClick={handleOrder}
-              disabled={!isAuth || cart.length <= 0}
-              className='checkout__left__inputs__button'
-            >
-              Order
-            </Button>
           </div>
         </div>
       </div>

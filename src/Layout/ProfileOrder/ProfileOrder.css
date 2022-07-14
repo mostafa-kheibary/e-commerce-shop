@@ -1,5 +1,6 @@
 .order-page__orders {
   margin-top: 2rem;
+  gap: 2rem;
   display: flex;
   flex-direction: column;
   width: 100%;

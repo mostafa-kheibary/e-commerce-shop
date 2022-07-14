@@ -8,4 +8,5 @@ import Input from './Input/Input';
 import ShopCartItem from './ShopCartItem/ShopCartItem';
 import Loader from './Loader/Loader';
 import LoaderPage from './LoaderPage/LoaderPage';
-export { Nav, ShopCart, MobileNav, Button, ProductCard, Login, Input, ShopCartItem, Loader, LoaderPage };
+import GoogleAuth from './GoogleAuth/GoogleAuth';
+export { Nav, ShopCart, MobileNav, Button, ProductCard, Login, Input, ShopCartItem, Loader, LoaderPage, GoogleAuth };

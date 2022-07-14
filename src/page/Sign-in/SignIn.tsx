@@ -5,7 +5,7 @@ import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
 import useForm from '../../hook/useForm';
 import { useNavigate } from 'react-router-dom';
-import { Button, Input } from '../../components';
+import { Button, GoogleAuth, Input } from '../../components';
 import { Login } from '../../components';
 import loadingBar from '../../assets/svg/loadingBar.svg';
 import { IProducts } from '../../types/productsType';
@@ -22,9 +22,11 @@ declare global {
 }
 interface IUser {
   name: string;
+  email: string;
   id: string;
   phone: string;
   purchuses: IProducts[];
+  favourite: any[];
 }
 
 const SignIn: React.FC = () => {
@@ -71,9 +73,11 @@ const SignIn: React.FC = () => {
       if (!userDoc.exists()) {
         const newUser: IUser = {
           name: 'new user',
+          email: '',
           id: user.uid,
           phone: values.phone,
           purchuses: [],
+          favourite: [],
         };
         await setDoc(doc(db, 'users', user.uid), newUser);
         setStage('newUser');
@@ -95,13 +99,14 @@ const SignIn: React.FC = () => {
   const handleChnageName = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log(values.name);
       const user = auth.currentUser;
       const newUser: IUser = {
         name: values.name,
+        email: '',
         id: user!.uid,
         phone: values.phone,
         purchuses: [],
+        favourite: [],
       };
       await Promise.all([
         await setDoc(doc(db, 'users', user!.uid), newUser),
@@ -140,6 +145,8 @@ const SignIn: React.FC = () => {
               <Button className='sign-in__button' type='submit'>
                 {loading ? <img width={20} src={loadingBar} alt='loading' /> : 'send verification code'}
               </Button>
+              <h4 style={{fontWeight:300,fontSize:'1.5rem',textAlign:'center'}}>or</h4>
+              <GoogleAuth />
             </form>
           ) : stage === 'verify' ? (
             <motion.form
