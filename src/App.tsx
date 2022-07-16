@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LoaderScreen, Toast } from './components';
 import { Header, ProfileDetails, ProfileFavourit, ProfileOrder, ProfileSetting } from './Layout';
 import Order from './Layout/Order/Order';
-import { About, Home, Product, Profile, SignIn } from './page';
+import { About, Home, Product, Profile, Shop, SignIn } from './page';
 import PrivetRoute from './routes/PrivetRoute';
 
 const App: React.FC = () => {
@@ -15,14 +15,15 @@ const App: React.FC = () => {
       <div style={{ marginTop: '8rem' }}>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/shop/:id' element={<Product />} />
+          <Route path='/shop' element={<Shop />} />
           <Route path='/cart' element={<Order />} />
           <Route path='/checkout' element={<Order />} />
           <Route path='/thanks' element={<Order />} />
           {/* privet pages */}
           <Route element={<PrivetRoute />}>
-            <Route path='/about' element={<About />} />
             <Route path='/profile' element={<Profile />}>
               <Route path='details' element={<ProfileDetails />} />
               <Route path='favourit' element={<ProfileFavourit />} />
