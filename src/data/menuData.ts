@@ -5,16 +5,18 @@ export interface IMenuData {
 }
 const menuData: IMenuData[] = [
   { name: 'HOME', url: '/' },
-  { name: 'ABOUT US', url: '/about' },
   { name: 'SHOP', url: '/shop' },
+  { name: 'COMPARE', url: '/COMPARE' },
   {
-    name: 'PRIVACY',
-    url: '/privacy',
+    name: 'CATAGORY',
+    url: '/catagory',
     submenu: [
-      { name: 'Refund Policy', url: '/privacy/refund' },
-      { name: 'Cookies', url: '/privacy/cookies' },
+      { name: 'Gaming consoles', url: '/catagory/consoles' },
+      { name: 'Phone', url: '/catagory/phone' },
+      { name: 'Accessories', url: '/catagory/Accessories' },
+      { name: 'Hedphone', url: '/catagory/hedphone' },
     ],
   },
-  { name: 'CONTACT US', url: '/contact' },
+  { name: 'ABOUT US', url: '/about' },
 ];
 export default menuData;

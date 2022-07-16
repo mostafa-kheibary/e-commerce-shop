@@ -1,6 +1,6 @@
 import { collection, DocumentData, getDocs, limit, query, QueryDocumentSnapshot, startAfter } from 'firebase/firestore';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
-import { Button, ProductCard } from '../../components';
+import { Button, ProductCard, ProductCardLoading } from '../../components';
 import { db } from '../../config/firebase.config';
 import { Container } from '../../Layout';
 import { IProducts } from '../../types/productsType';
@@ -71,14 +71,7 @@ const Shop: FC = () => {
         <div className='shop__products-section'>
           <span className='shop__products__status'>1-10 of {filterdProducts.length} products</span>
           <div className='shop__products'>
-            {loading &&
-              new Array(10).fill(0).map(() => (
-                <div className='shop__skeleton__product'>
-                  <div className='shop__skeleton__product__image'></div>
-                  <div className='shop__skeleton__product__name'></div>
-                  <div className='shop__skeleton__product__price'></div>
-                </div>
-              ))}
+            {loading && new Array(10).fill(0).map(() => <ProductCardLoading />)}
             {filterdProducts.map((product) => (
               <ProductCard productData={product} />
             ))}

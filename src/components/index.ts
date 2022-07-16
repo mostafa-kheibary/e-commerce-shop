@@ -11,7 +11,9 @@ import LoaderPage from './LoaderPage/LoaderPage';
 import GoogleAuth from './GoogleAuth/GoogleAuth';
 import LoaderScreen from './LoaderScreen/LoaderScreen';
 import Toast from './Toast/Toast';
+import ProductCardLoading from './ProductCardLoading/ProductCardLoading';
 export {
+  ProductCardLoading,
   Nav,
   ShopCart,
   MobileNav,
