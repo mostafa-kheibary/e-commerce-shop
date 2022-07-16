@@ -12,6 +12,7 @@ import GoogleAuth from './GoogleAuth/GoogleAuth';
 import LoaderScreen from './LoaderScreen/LoaderScreen';
 import Toast from './Toast/Toast';
 import ProductCardLoading from './ProductCardLoading/ProductCardLoading';
+import ElevatorButton from './ElevatorButton/ElevatorButton';
 export {
   ProductCardLoading,
   Nav,
@@ -27,4 +28,5 @@ export {
   GoogleAuth,
   LoaderScreen,
   Toast,
+  ElevatorButton,
 };

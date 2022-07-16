@@ -17,7 +17,8 @@
 }
 .sub-footer {
   width: 100%;
-  background-color: var(--primary-color);
+  background-color:rgb(53, 53, 53);
+  color: white;
   padding: 1rem;
 }
 .footer__copyright {

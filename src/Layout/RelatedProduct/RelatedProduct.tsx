@@ -32,8 +32,8 @@ const RelatedProduct: FC<IProps> = ({ catagory, currentProductId }) => {
     <div className='related-product'>
       <Swiper
         pagination={{ clickable: true }}
-        slidesPerView={4}
-        spaceBetween={200}
+        slidesPerView={3}
+        spaceBetween={0}
         modules={[Pagination]}
         navigation
         lazy

@@ -1,0 +1,22 @@
+.elevator-button {
+  position: fixed;
+  bottom: 1rem;
+  visibility: hidden;
+  opacity: 0;
+  right: 2rem;
+  z-index: 10000;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.315);
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms ease;
+}
+.elevator-button.visible {
+  bottom: 2rem;
+  opacity: 1;
+  visibility: visible;
+}

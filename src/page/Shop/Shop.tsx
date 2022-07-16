@@ -34,7 +34,7 @@ const Shop: FC = () => {
   const loadMoreProducts = async () => {
     const productsArray: any = [];
     try {
-      const nextProducts = query(collection(db, 'products'), startAfter(lastProduct), limit(25));
+      const nextProducts = query(collection(db, 'products'), startAfter(lastProduct), limit(10));
       const snapShot = await getDocs(nextProducts);
       snapShot.forEach((doc) => {
         const data = doc.data();

@@ -7,6 +7,8 @@
 }
 .shop-cart__item__image {
   width: 8rem;
+  height: 8rem;
+object-fit: cover;
 }
 
 .shop-cart__item__name {

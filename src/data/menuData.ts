@@ -14,7 +14,7 @@ const menuData: IMenuData[] = [
       { name: 'Gaming consoles', url: '/catagory/consoles' },
       { name: 'Phone', url: '/catagory/phone' },
       { name: 'Accessories', url: '/catagory/Accessories' },
-      { name: 'Hedphone', url: '/catagory/hedphone' },
+      { name: 'Headphone', url: '/catagory/headphone' },
     ],
   },
   { name: 'ABOUT US', url: '/about' },

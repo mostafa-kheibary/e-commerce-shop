@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { LoaderScreen, Toast } from './components';
+import { ElevatorButton, LoaderScreen, Toast } from './components';
 import { Header, ProfileDetails, ProfileFavourit, ProfileOrder, ProfileSetting } from './Layout';
 import Order from './Layout/Order/Order';
 import { About, Home, NotFound, Product, Profile, Shop, SignIn } from './page';
@@ -9,9 +9,10 @@ import PrivetRoute from './routes/PrivetRoute';
 const App: React.FC = () => {
   return (
     <Router>
-      <Header />
       <Toast />
+      <ElevatorButton />
       <LoaderScreen />
+      <Header />
       <div style={{ marginTop: '8rem' }}>
         <Routes>
           <Route path='/' element={<Home />} />

@@ -1,4 +1,4 @@
-import { doc, getDoc, Timestamp } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Button, Loader } from '../../components';
 import { db } from '../../config/firebase.config';
