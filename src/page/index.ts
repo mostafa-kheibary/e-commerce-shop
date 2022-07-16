@@ -7,4 +7,5 @@ import CheckOut from './CheckOut/CheckOut';
 import Cart from './Cart/Cart';
 import Thanks from './Thanks/Thanks';
 import Shop from './Shop/Shop';
-export { Home, SignIn, About, Profile, Product, Cart, CheckOut, Thanks, Shop };
+import NotFound from './NotFound/NotFound';
+export { Home, SignIn, About, Profile, Product, Cart, CheckOut, Thanks, Shop, NotFound };
