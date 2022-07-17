@@ -77,6 +77,8 @@
 }
 .checkout__right__product-image {
   width: 7rem;
+  height: 6rem;
+  object-fit: cover;
 }
 .checkout__right__subtotal {
   margin-top: 1rem;

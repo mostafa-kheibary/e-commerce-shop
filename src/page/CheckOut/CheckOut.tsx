@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import { updateDoc, doc, arrayUnion } from 'firebase/firestore';
 import { Timestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { Button, Input } from '../../components';
 import { useCartContext } from '../../context/Cart/CartContext';
 import { useInvoiceContext } from '../../context/Invoice/InvoiceContext';
@@ -9,21 +10,20 @@ import useAuth from '../../hook/useAuth';
 import useForm from '../../hook/useForm';
 import useToast from '../../hook/useToast';
 import { Container } from '../../Layout';
-import './CheckOut.css';
 import { db } from '../../config/firebase.config';
-import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../hook/useLocalStorage';
+import './CheckOut.css';
 
 const CheckOut: FC = () => {
   const { isAuth, loading } = useAuth();
   const { state: cart, clearCart } = useCartContext();
   const { state: invoice, setInvoice } = useInvoiceContext();
-  const { setStorage } = useLocalStorage();
-  const navigate = useNavigate();
-  const { errorToast } = useToast();
   const {
     state: { user },
   } = useUserContext();
+  const { setStorage } = useLocalStorage();
+  const navigate = useNavigate();
+  const { errorToast } = useToast();
 
   useEffect(() => {
     if (!loading) {
@@ -32,6 +32,7 @@ const CheckOut: FC = () => {
       }
     }
   }, [loading, isAuth]);
+
   const handleOrder = async () => {
     if (isAuth) {
       if (cart.length > 0) {
@@ -54,7 +55,9 @@ const CheckOut: FC = () => {
       errorToast('you are not login', 'please log in to your account to continue');
     }
   };
+
   const { handleChange, handleSubmit, values } = useForm(handleOrder);
+
   return (
     <Container>
       <h2 className='checkout__title'>Check Out</h2>

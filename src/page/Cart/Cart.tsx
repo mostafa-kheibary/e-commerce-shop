@@ -4,20 +4,20 @@ import { Button, Input, ShopCartItem } from '../../components';
 import { useCartContext } from '../../context/Cart/CartContext';
 import { Container } from '../../Layout';
 import emptyCartImage from '../../assets/image/cart.png';
-import './Cart.css';
 import useForm from '../../hook/useForm';
 import coponData from '../../data/copon.json';
 import useToast from '../../hook/useToast';
 import { useInvoiceContext } from '../../context/Invoice/InvoiceContext';
 import useLocalStorage from '../../hook/useLocalStorage';
+import './Cart.css';
 
 const Cart: FC = () => {
   const navigate = useNavigate();
   const { state: cart } = useCartContext();
+  const { state: invoice, setInvoice } = useInvoiceContext();
+  const [copon, setCopon] = useState<{ text: string; percent: number }>({ text: '', percent: 0 });
   const { errorToast } = useToast();
   const { setStorage, getStorage } = useLocalStorage();
-  const [copon, setCopon] = useState<{ text: string; percent: number }>({ text: '', percent: 0 });
-  const { state: invoice, setInvoice } = useInvoiceContext();
 
   const totalPrice: any = cart
     .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.quantity), 0)
@@ -26,19 +26,19 @@ const Cart: FC = () => {
   const submitToCheckout = () => {
     if (cart.length > 0) {
       navigate('/checkout');
-    } else {
-      errorToast('cant continue to checkout', 'your cart is empty');
     }
   };
 
   useEffect(() => {
+    // get saved token from local storage
     const localStorageCopon = getStorage('DISCOUNT_COPON');
     if (localStorageCopon.percent > 0) {
       setCopon(localStorageCopon);
-      console.log(localStorageCopon);
       values.copon = localStorageCopon.text;
     }
   }, []);
+
+  // refactor !
   const applyCopon = () => {
     // if we dont have any copon set,add it
     if (copon.percent <= 0) {
@@ -54,9 +54,8 @@ const Cart: FC = () => {
       if (!coponData.hasOwnProperty(values.copon)) {
         errorToast('copon code is not correct', 'try " TEST " to get 20% discount');
       }
-    }
-    //if we have copon , remove it
-    else {
+    } else {
+      //if we have copon , remove it
       values.copon = '';
       setCopon({ text: '', percent: 0 });
       setInvoice({ ...invoice, totalPrice: +totalPrice });
