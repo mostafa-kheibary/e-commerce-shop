@@ -25,3 +25,7 @@
   justify-content: center;
   gap: 5rem;
 }
+.new-product__button-wrapper {
+  text-align: center;
+  margin-top: 4rem;
+}

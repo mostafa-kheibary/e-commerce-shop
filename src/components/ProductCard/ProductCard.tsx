@@ -22,7 +22,9 @@ const ProductCard: React.FC<Props> = ({ productData }) => {
 
   return (
     <div onClick={handleOpenProduct} className='product-card'>
-      <div className='product-card__discount-percent'>-{productData.discountPercent}%</div>
+      {productData.discountPercent > 0 && (
+        <div className='product-card__discount-percent'>-{productData.discountPercent}%</div>
+      )}
       <div className='product-card__tools'>
         <button className='product-card__tools-tool'>
           <BiGitCompare size={20} />
@@ -51,7 +53,7 @@ const ProductCard: React.FC<Props> = ({ productData }) => {
       <div className='product-card__content'>
         <h4 className='product-card__name'>{productData.name}</h4>
         <div className='product-card__content__price'>
-          <del className='product-card__regular-price'>{productData.price}</del>
+          {productData.discountPercent > 0 && <del className='product-card__regular-price'>{productData.price}</del>}
           <span className='product-card__discount-price'>{discountPrice}</span>
         </div>
       </div>

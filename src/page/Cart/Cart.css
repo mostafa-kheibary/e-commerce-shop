@@ -80,3 +80,15 @@
   font-size: 1.4rem;
   font-weight: 400;
 }
+
+@media screen and (max-width: 850px) {
+  .cart-page {
+    flex-direction: column-reverse;
+  }
+  .cart-page > div {
+    width: 100%;
+  }
+  .cart-page__right__summery-box {
+    width: 100%;
+  }
+}

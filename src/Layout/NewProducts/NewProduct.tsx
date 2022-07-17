@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, limit, query } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
 import { IProducts } from '../../types/productsType';
-import { Loader, ProductCard } from '../../components';
+import { Button, Loader, ProductCard } from '../../components';
 import './NewProduct.css';
+import { useNavigate } from 'react-router-dom';
 
 const NewProduct: React.FC = () => {
   const [products, setProducts] = useState<IProducts[] | []>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
     // fetch and get product
     const allProducts: any[] = [];
     (async () => {
-      const snapShot = await getDocs(collection(db, 'products'));
+      const querySnap = query(collection(db, 'products'), limit(6));
+      const snapShot = await getDocs(querySnap);
       snapShot.forEach((doc) => {
         const data = doc.data();
         allProducts.push(data);
@@ -35,6 +38,9 @@ const NewProduct: React.FC = () => {
         {products.map((product) => (
           <ProductCard key={product.id} productData={product} />
         ))}
+      </div>
+      <div className='new-product__button-wrapper'>
+        <Button onClick={() => navigate('/shop')}>Go To Shop</Button>
       </div>
     </div>
   );

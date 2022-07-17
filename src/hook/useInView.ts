@@ -12,7 +12,7 @@ const useInView = (callback: () => void) => {
     }
   };
   useEffect(() => {
-    const observer = new IntersectionObserver(observerCallBack, { threshold: 0.5 });
+    const observer = new IntersectionObserver(observerCallBack, { threshold: 1 });
     if (elementRef.current) {
       observer.observe(elementRef.current);
     }

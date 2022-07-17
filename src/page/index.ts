@@ -8,4 +8,5 @@ import Cart from './Cart/Cart';
 import Thanks from './Thanks/Thanks';
 import Shop from './Shop/Shop';
 import NotFound from './NotFound/NotFound';
-export { Home, SignIn, About, Profile, Product, Cart, CheckOut, Thanks, Shop, NotFound };
+import ProductContainer from '../components/ProductsContainer/ProductContainer';
+export { Home, SignIn, About, Profile, Product, Cart, CheckOut, Thanks, Shop, NotFound, ProductContainer };

@@ -1,5 +1,5 @@
 import { useUserContext } from '../../context/User/UserContext';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import './Profile.css';
 import { Container, ProfileSideBar } from '../../Layout';
 
@@ -12,6 +12,12 @@ const Profile: React.FC = () => {
     <Container className='profile-container'>
       <div className='profile__sidebar'>
         <ProfileSideBar />
+      </div>
+      <div className='profile__mobile-navigation'>
+        <Link to='details'>Profile Details</Link>
+        <Link to='favourit'>My favourit</Link>
+        <Link to='order'>My order</Link>
+        <Link to='setting'>Account Setting</Link>
       </div>
       <div className='profile__content'>
         {loc.pathname.split('/')[2] ? (

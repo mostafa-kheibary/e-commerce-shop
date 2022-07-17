@@ -7,7 +7,7 @@
 .product-slider__main-image {
   width: 40rem;
   height: 40rem;
-  object-fit: contain ;
+  object-fit: contain;
   border: 0.2rem solid rgba(0, 0, 0, 0.096);
   border-radius: 0.5rem;
 }
@@ -40,4 +40,18 @@
 }
 .product-slider__images-image.active-slide {
   border: 0.2rem solid var(--primary-color) !important;
+}
+
+@media screen and (max-width: 990px) {
+  .product-slider {
+    flex-direction: column;
+    height: fit-content;
+  }
+  .product-slider > img {
+    width: 100%;
+  }
+  .product-slider__images > div {
+    height: fit-content;
+    width: 100%;
+  }
 }

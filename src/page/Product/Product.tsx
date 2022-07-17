@@ -1,5 +1,5 @@
 import { Container, ProductSlider } from '../../Layout';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
@@ -16,6 +16,7 @@ const Product: React.FC = () => {
   const RelatedProduct = useMemo(() => lazy(() => import('../../Layout/RelatedProduct/RelatedProduct')), []);
 
   const { id } = useParams<string>();
+  const navigate = useNavigate();
   const { addToCart, state } = useCartContext();
   const [product, setProduct] = useState<IProducts | null>(null);
   const { errorToast } = useToast();
@@ -29,19 +30,24 @@ const Product: React.FC = () => {
   };
 
   useEffect(() => {
-    window.scroll(0, 0);
-    const fethProduct = async () => {
-      setProduct(null);
-      try {
+    try {
+      window.scroll(0, 0);
+      const fethProduct = async () => {
+        setProduct(null);
         const docRef = doc(db, 'products', `${id}`);
         const data = await getDoc(docRef);
+        if (!data.exists()) {
+          navigate('/shop');
+          errorToast('product not found', 'make sure enter correct product id in url');
+        }
         const productData: any = data.data();
         setProduct(productData);
-      } catch (error) {
-        errorToast('cant get data from server', 'make sure you have accses to internet ');
-      }
-    };
-    fethProduct();
+      };
+      fethProduct();
+    } catch (error) {
+      errorToast('cant get data from server', 'make sure you have accses to internet ');
+      console.log(error);
+    }
   }, [id]);
 
   const { handleChange, handleSubmit, values } = useForm(handleAddToCart, { quantity: 1 });
@@ -99,7 +105,9 @@ const Product: React.FC = () => {
           </span>
 
           <div className='product-page__content__prices'>
-            <del className='product-page__content__non-discount-price'>$ {product.price}</del>
+            {product.discountPercent > 0 && (
+              <del className='product-page__content__non-discount-price'>$ {product.price}</del>
+            )}
             <h4 className='product-page__content__price'>$ {discountPrice}</h4>
           </div>
           <hr className='product-page__line' />

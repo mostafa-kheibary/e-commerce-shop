@@ -7,6 +7,7 @@ import { ProductCard } from '../../components';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import './RelatedProduct.css';
 
 import { Pagination } from 'swiper';
 interface IProps {
@@ -32,9 +33,10 @@ const RelatedProduct: FC<IProps> = ({ catagory, currentProductId }) => {
     <div className='related-product'>
       <Swiper
         pagination={{ clickable: true }}
-        slidesPerView={3}
+        slidesPerView={1}
         spaceBetween={0}
         modules={[Pagination]}
+        breakpoints={{ 950: { slidesPerView: 3 }, 650: { slidesPerView: 2 } }}
         navigation
         lazy
       >

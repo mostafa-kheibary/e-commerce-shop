@@ -12,12 +12,20 @@
   padding: 4rem;
   height: 100%;
 }
+.profile__mobile-navigation {
+  display: none;
+}
 @media screen and (max-width: 900px) {
   .profile__content {
     width: 100%;
   }
   .profile-container {
     gap: 0;
+    flex-direction: column;
+  }
+  .profile__mobile-navigation {
+    display: flex;
+    gap: 2rem;
   }
 }
 .profile__sidebar {

@@ -1,4 +1,5 @@
 import { FC, Fragment, useEffect, useState } from 'react';
+import { FiSearch } from 'react-icons/fi';
 import { collection, DocumentData, getDocs, limit, query, QueryDocumentSnapshot, startAfter } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
 import useInView from '../../hook/useInView';
@@ -7,6 +8,7 @@ import { IProducts } from '../../types/productsType';
 import { Button, Loader, ProductCard, ProductCardLoading } from '../../components';
 import { Container, Footer } from '../../Layout';
 import './Shop.css';
+import ProductContainer from '../../components/ProductsContainer/ProductContainer';
 
 const Shop: FC = () => {
   const { errorToast } = useToast();
@@ -76,36 +78,41 @@ const Shop: FC = () => {
       <Container>
         <div className='shop'>
           <div className='shop__head'>
-            <input
-              value={searchQuery}
-              className='shop__head__search'
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder='search products'
-              type='text'
-            />
+            <div className='shop__head__search'>
+              <FiSearch className='shop__head__search-icon' />
+              <input
+                value={searchQuery}
+                className='shop__head__search-input'
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder='search products'
+                type='text'
+              />
+            </div>
             <div className='shop__head__filter'>
-              <select>
-                <option>Sort by Price</option>
-                <option>Sort by Price</option>
-                <option>Sort by Price</option>
-                <option>Sort by Price</option>
-              </select>
-              <Button className='shop__head__filter-button secoundry'>filter</Button>
+              <Button title='comming soon' className='shop__head__filter-button secoundry'>
+                filter
+              </Button>
             </div>
           </div>
           <div className='shop__products-section'>
             <span className='shop__products__status'>
               1-{filterdProducts.length} of {allProductSize} products
             </span>
-            <div className='shop__products'>
+            <ProductContainer>
               {loading && new Array(10).fill(0).map((_, i) => <ProductCardLoading key={i} />)}
               {filterdProducts.map((product, i) => (
                 <Fragment key={i}>
                   <ProductCard productData={product} />
                 </Fragment>
               ))}
+
               <div ref={elementRef}></div>
-            </div>
+            </ProductContainer>
+            {filterdProducts.length <= 0 && (
+              <div className='shop__products__not-found'>
+                <h4 className='shop__products__not-found__text'>{searchQuery} was not Found</h4>
+              </div>
+            )}
             {loadMoreLoading && <Loader />}
           </div>
         </div>

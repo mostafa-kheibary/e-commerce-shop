@@ -35,7 +35,7 @@
   height: 2rem;
   border-radius: 50%;
   background-color: white;
-  border:solid 0.3rem var(--primary-color);
+  border: solid 0.3rem var(--primary-color);
   left: 50%;
   transform: translateX(-50%);
 }
@@ -47,4 +47,10 @@
 }
 .order-progress__text.order-progress-finish {
   left: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .order-progress {
+    width: 80%;
+  }
 }

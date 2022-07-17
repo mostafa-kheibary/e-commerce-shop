@@ -58,3 +58,12 @@ object-fit: cover;
 .shop-cart__item__counter-button {
   padding: 0.1rem 0.8rem !important;
 }
+.shop-cart__item__content{
+  padding-right: 2rem;
+  padding-bottom: 2rem;
+}
+@media screen and (max-width:350px){
+  .shop-cart__item__name{
+    font-size: 1.2rem;
+  }
+}

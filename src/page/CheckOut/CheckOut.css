@@ -96,3 +96,20 @@
   margin-top: 2rem;
   background-color: #e7e7e7;
 }
+
+@media screen and (max-width: 850px) {
+  .checkout {
+    flex-direction: column-reverse;
+  }
+  .checkout > div {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 520px) {
+  .checkout__left__inputs__two-coloum {
+    flex-direction: column;
+  }
+  .checkout__left input {
+    width: 100%;
+  }
+}

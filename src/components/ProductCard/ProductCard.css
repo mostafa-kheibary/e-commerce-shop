@@ -4,6 +4,7 @@
   position: relative;
   width: 30rem;
   min-height: 1px;
+  margin: 0 auto;
 }
 .product-card__discount-percent {
   z-index: 10;
@@ -117,4 +118,9 @@
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--primary-color);
+}
+@media screen and (max-width: 995px) {
+  .product-card .add-to-cart {
+    bottom: 0;
+  }
 }

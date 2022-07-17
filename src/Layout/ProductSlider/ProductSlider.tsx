@@ -24,7 +24,15 @@ const ProductSlider: React.FC<IProps> = ({ images }) => {
         alt=''
       />
       <div className='product-slider__images'>
-        <Swiper direction='vertical' spaceBetween={10} slidesPerView={3}>
+        <Swiper
+          direction='horizontal'
+          breakpoints={{
+            990: { direction: 'vertical', spaceBetween: 10, slidesPerView: 3 },
+            480: { spaceBetween: 5, slidesPerView: 4 },
+          }}
+          spaceBetween={3}
+          slidesPerView={3}
+        >
           {images.map((image, i) => (
             <SwiperSlide key={i}>
               <motion.img
