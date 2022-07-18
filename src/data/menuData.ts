@@ -13,7 +13,7 @@ const menuData: IMenuData[] = [
     submenu: [
       { name: 'Gaming consoles', url: '/catagory/consoles' },
       { name: 'Phone', url: '/catagory/phone' },
-      { name: 'Accessories', url: '/catagory/Accessories' },
+      { name: 'Accessories', url: '/catagory/accessories' },
       { name: 'Headphone', url: '/catagory/headphone' },
     ],
   },

@@ -30,7 +30,6 @@
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
-  text-align: left;
   justify-content: left;
 }
 .product-page__content__non-discount-price {
@@ -227,6 +226,17 @@
 @media screen and (max-width: 990px) {
   .product-page {
     flex-direction: column;
+  }
+  .product-skeleton-loading {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .product-page__content {
+    padding: 0;
+  }
+  .product-skeleton-loading__left__image {
+    width: 100%;
+    margin: 0;
   }
   .product-page__buy-section,
   .product-page__status {

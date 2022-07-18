@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ElevatorButton, LoaderScreen, Toast } from './components';
 import { Header, ProfileDetails, ProfileFavourit, ProfileOrder, ProfileSetting } from './Layout';
 import Order from './Layout/Order/Order';
-import { About, Home, NotFound, Product, Profile, Shop, SignIn } from './page';
+import { About, Catagory, CatagoryPage, Home, NotFound, Product, Profile, Shop, SignIn } from './page';
 import PrivetRoute from './routes/PrivetRoute';
 
 const App: React.FC = () => {
@@ -23,6 +23,8 @@ const App: React.FC = () => {
           <Route path='/cart' element={<Order />} />
           <Route path='/checkout' element={<Order />} />
           <Route path='/thanks' element={<Order />} />
+          <Route path='/catagory' element={<Catagory />} />
+          <Route path='/catagory/:name' element={<CatagoryPage />} />
           <Route path='*' element={<NotFound />} />
           {/* privet pages */}
           <Route element={<PrivetRoute />}>
