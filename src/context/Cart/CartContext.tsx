@@ -45,31 +45,32 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
 
   const increaseQuantity = (item: IProducts): void => {
     dispath({ type: 'INCRESE_COUNT', payload: item.id });
-    const newProducts = state.products.map((item) => {
-      if (item.id === item.id) {
-        return { ...item, quantity: item.quantity + 1 };
+    const newProducts = state.products.map((productItem) => {
+      if (productItem.id === item.id) {
+        return { ...productItem, quantity: item.quantity + 1 };
       }
-      return item;
+      return productItem;
     });
     setStorage('SHOP_CART', newProducts);
   };
 
-  const clearCart = () => {
-    dispath({ type: 'CLEAR_CART' });
-    setStorage('SHOP_CART', []);
-  };
   const decreaseQuantity = (item: IProducts): void => {
     dispath({ type: 'DECRESE_COUNT', payload: item.id });
-    const newProducts = state.products.map((item) => {
-      if (item.id === item.id) {
-        return { ...item, quantity: item.quantity - 1 };
+    const newProducts = state.products.map((productItem) => {
+      if (productItem.id === item.id) {
+        return { ...productItem, quantity: item.quantity - 1 };
       }
-      return item;
+      return productItem;
     });
     setStorage('SHOP_CART', newProducts);
     if (item.quantity <= 1) {
       deleteFromCart(item);
     }
+  };
+
+  const clearCart = () => {
+    dispath({ type: 'CLEAR_CART' });
+    setStorage('SHOP_CART', []);
   };
   const setTotalPrice = (price: number): void => {
     dispath({ type: 'SET_TOTAL_PRICE', payload: price });
