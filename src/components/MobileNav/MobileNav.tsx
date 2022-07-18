@@ -59,7 +59,7 @@ const MobileNav: React.FC = () => {
         </div>
         <NavLink />
         <Button className='mobile-menu__register-button secoundry'>
-          <LoginButton />
+          <LoginButton className='mobile-menu__register-link' />
         </Button>
       </div>
       {/* overlay */}

@@ -5,6 +5,7 @@ import { Container, ProfileSideBar } from '../../Layout';
 
 const Profile: React.FC = () => {
   const loc = useLocation();
+  const pathname = loc.pathname.split('/')[2];
   const {
     state: { user },
   } = useUserContext();
@@ -14,10 +15,18 @@ const Profile: React.FC = () => {
         <ProfileSideBar />
       </div>
       <div className='profile__mobile-navigation'>
-        <Link to='details'>Profile Details</Link>
-        <Link to='favourit'>My favourit</Link>
-        <Link to='order'>My order</Link>
-        <Link to='setting'>Account Setting</Link>
+        <Link className={`profile__mobile-navigation__link ${pathname === 'details' ? 'active' : ''}`} to='details'>
+          Profile Details
+        </Link>
+        <Link className={`profile__mobile-navigation__link ${pathname === 'favourit' ? 'active' : ''}`} to='favourit'>
+          My favourit
+        </Link>
+        <Link className={`profile__mobile-navigation__link ${pathname === 'order' ? 'active' : ''}`} to='order'>
+          My order
+        </Link>
+        <Link className={`profile__mobile-navigation__link ${pathname === 'setting' ? 'active' : ''}`} to='setting'>
+          Account Setting
+        </Link>
       </div>
       <div className='profile__content'>
         {loc.pathname.split('/')[2] ? (

@@ -10,6 +10,7 @@ const ProfileOrder: React.FC = () => {
   const [orders, setOrders] = useState<[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
+  console.log(orders);
   const {
     state: { user },
   } = useUserContext();
@@ -50,10 +51,10 @@ const ProfileOrder: React.FC = () => {
                   ))
                 : order.products.splice(0, 4).map((product: IProducts) => (
                     <div>
-                      <img className='order-page__orders__order-img' src={product.imageUrls[0]} alt={product.name} />+
-                      {order.products.length - 4}
+                      <img className='order-page__orders__order-img' src={product.imageUrls[0]} alt={product.name} />
                     </div>
                   ))}
+              {order.products.length}
             </div>
             <Button className='secoundry order-page__orders-button'>{'>'}</Button>
           </div>

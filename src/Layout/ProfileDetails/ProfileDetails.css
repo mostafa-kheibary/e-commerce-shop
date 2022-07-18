@@ -39,3 +39,12 @@
   margin-top: 2rem;
   width: 20rem;
 }
+@media screen and (max-width: 550px) {
+  .profile-details__form__inputs {
+    flex-direction: column;
+  }
+  .profile-details__submit-button{
+    margin: 0 auto;
+    margin-top: 2rem;
+  }
+}

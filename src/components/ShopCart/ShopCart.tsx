@@ -8,20 +8,15 @@ import ShopCartItem from '../ShopCartItem/ShopCartItem';
 import emptyCartImage from '../../assets/image/cart.png';
 import './ShopCart.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useInvoiceContext } from '../../context/Invoice/InvoiceContext';
 
 const ShopCart: React.FC = () => {
-  const { state, dispath } = useCartContext();
+  const { cart, totalPrice, dispath } = useCartContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
   const [addAnimation, setAddAnimation] = useState<boolean>(false);
   const navigate = useNavigate();
-  const {
-    state: { totalPrice },
-  } = useInvoiceContext();
-
   const { getStorage } = useLocalStorage();
-
+  console.log(cart);
   useEffect(() => {
     const fethProducts = () => {
       const cartData = getStorage('SHOP_CART');
@@ -35,7 +30,7 @@ const ShopCart: React.FC = () => {
     setTimeout(() => {
       setAddAnimation(false);
     }, 1000);
-  }, [state]);
+  }, [cart]);
 
   useEffect(() => {
     setIsOpen(false);
@@ -46,7 +41,7 @@ const ShopCart: React.FC = () => {
       <div onClick={() => setIsOpen(!isOpen)} className='cart'>
         <div className='cart-icons'>
           <span className={`cart-quantity ${addAnimation ? 'active' : ''}`}>
-            {state.reduce((prev, pro) => (prev += pro.quantity), 0)}
+            {cart.reduce((prev, pro) => (prev += pro.quantity), 0)}
           </span>
           <MdOutlineShoppingBag className='cart-icon' />
         </div>
@@ -57,13 +52,13 @@ const ShopCart: React.FC = () => {
           <h2 className='cart-title'>Shoping Cart</h2>
         </div>
         <div className='cart-wrapper__body'>
-          {state.length <= 0 ? (
+          {cart.length <= 0 ? (
             <div className='empty-cart'>
               <img src={emptyCartImage} alt='empty cart' className='empty-cart__image' />
               <p className='empty-cart__text'>Oops! your cart is empty </p>
             </div>
           ) : (
-            state.map((item: IProducts, i: number) => <ShopCartItem key={i} item={item} />)
+            cart.map((item: IProducts, i: number) => <ShopCartItem key={i} item={item} />)
           )}
         </div>
         <div className='cart-wrapper__footer'>

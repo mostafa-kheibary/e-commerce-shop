@@ -26,6 +26,17 @@
   .profile__mobile-navigation {
     display: flex;
     gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .profile__mobile-navigation__link.active{
+    color: var(--primary-color);
+  }
+  .profile__mobile-navigation__link {
+    text-decoration: none;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 400;
   }
 }
 .profile__sidebar {
@@ -39,4 +50,9 @@
 .profile__content__welcome-sub-message {
   font-size: 1.4rem;
   font-weight: 300;
+}
+@media screen and (max-width: 550px) {
+  .profile__content{
+    padding: 2rem;
+  }
 }

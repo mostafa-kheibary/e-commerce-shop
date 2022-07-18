@@ -11,3 +11,8 @@ export interface IProducts {
   inStock: boolean;
   quantity: number;
 }
+interface ICart {
+  totalPrice: number;
+  products: IProducts[];
+}
+export type { ICart };

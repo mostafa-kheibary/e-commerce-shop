@@ -7,19 +7,17 @@ import emptyCartImage from '../../assets/image/cart.png';
 import useForm from '../../hook/useForm';
 import coponData from '../../data/copon.json';
 import useToast from '../../hook/useToast';
-import { useInvoiceContext } from '../../context/Invoice/InvoiceContext';
 import useLocalStorage from '../../hook/useLocalStorage';
 import './Cart.css';
 
 const Cart: FC = () => {
   const navigate = useNavigate();
-  const { state: cart } = useCartContext();
-  const { state: invoice, setInvoice } = useInvoiceContext();
+  const { cart, setTotalPrice } = useCartContext();
   const [copon, setCopon] = useState<{ text: string; percent: number }>({ text: '', percent: 0 });
   const { errorToast } = useToast();
   const { setStorage, getStorage } = useLocalStorage();
 
-  const totalPrice: any = cart
+  const totalProductsPrice: any = cart
     .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.quantity), 0)
     .toFixed(2);
 
@@ -47,8 +45,8 @@ const Cart: FC = () => {
           type ObjectKey = keyof typeof coponData;
           setCopon({ text: cop, percent: coponData[cop as ObjectKey] });
           setStorage('DISCOUNT_COPON', { text: cop, percent: coponData[cop as ObjectKey] });
-          const coponDiscount: any = ((totalPrice * coponData[cop as ObjectKey]) / 100).toFixed(2);
-          setInvoice({ ...invoice, totalPrice: +(+totalPrice - +coponDiscount).toFixed(2) });
+          const coponDiscount: any = ((totalProductsPrice * coponData[cop as ObjectKey]) / 100).toFixed(2);
+          setTotalPrice(+(+totalProductsPrice - +coponDiscount).toFixed(2));
         }
       }
       if (!coponData.hasOwnProperty(values.copon)) {
@@ -58,14 +56,14 @@ const Cart: FC = () => {
       //if we have copon , remove it
       values.copon = '';
       setCopon({ text: '', percent: 0 });
-      setInvoice({ ...invoice, totalPrice: +totalPrice });
+      setTotalPrice(+totalProductsPrice);
       setStorage('DISCOUNT_COPON', { text: '', percent: 0 });
     }
   };
 
   const { handleSubmit, handleChange, values } = useForm(applyCopon, { copon: copon.text });
 
-  const discount: any = ((totalPrice * copon.percent) / 100).toFixed(2);
+  const discount: any = ((totalProductsPrice * copon.percent) / 100).toFixed(2);
   return (
     <Container>
       <h2 className='cart-page__title'>Shoping cart</h2>
@@ -78,7 +76,7 @@ const Cart: FC = () => {
               discount system
             </p>
             <h4 className='cart-page__right__summery-box__order-price'>
-              Order Total : {(totalPrice - discount).toFixed(2)} $
+              Order Total : {(totalProductsPrice - discount).toFixed(2)} $
             </h4>
             <h4 className='cart-page__right__summery-box__discount-status'>
               {copon.percent > 0 ? `${copon.percent}% discount and you save ${discount} $` : ''}

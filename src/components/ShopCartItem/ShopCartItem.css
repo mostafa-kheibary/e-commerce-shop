@@ -8,7 +8,7 @@
 .shop-cart__item__image {
   width: 8rem;
   height: 8rem;
-object-fit: cover;
+  object-fit: cover;
 }
 
 .shop-cart__item__name {
@@ -57,13 +57,14 @@ object-fit: cover;
 }
 .shop-cart__item__counter-button {
   padding: 0.1rem 0.8rem !important;
+  background-color: white !important;
 }
-.shop-cart__item__content{
+.shop-cart__item__content {
   padding-right: 2rem;
   padding-bottom: 2rem;
 }
-@media screen and (max-width:350px){
-  .shop-cart__item__name{
+@media screen and (max-width: 350px) {
+  .shop-cart__item__name {
     font-size: 1.2rem;
   }
 }

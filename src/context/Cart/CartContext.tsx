@@ -1,27 +1,29 @@
 import React, { createContext, Reducer, useContext, useEffect, useReducer } from 'react';
 import useLocalStorage from '../../hook/useLocalStorage';
-import { IProducts } from '../../types/productsType';
-import { useInvoiceContext } from '../Invoice/InvoiceContext';
+import { ICart, IProducts } from '../../types/productsType';
 import cartReducer from './CartReducer';
 import coponData from '../../data/copon.json';
 
-const initialState: IProducts[] = [];
+const initialState: ICart = {
+  totalPrice: 0,
+  products: [],
+};
 const CartContext = createContext<any>(initialState);
 
 interface IProps {
   children: React.ReactNode;
 }
 const CartContextProvider: React.FC<IProps> = ({ children }) => {
-  const [state, dispath] = useReducer<Reducer<IProducts[], any>>(cartReducer, initialState);
-  const { state: invoice, setInvoice } = useInvoiceContext();
+  const [state, dispath] = useReducer<Reducer<ICart, any>>(cartReducer, initialState);
   const { getStorage, setStorage } = useLocalStorage();
 
   const addToCart = (productData: IProducts, quantity: number = 1): void => {
+    const { products } = state;
     // add count to the new product and set it to 1 as default
-    if (state.find((product) => product.id === productData.id)) {
-      const product = state.find((product) => product.id === productData.id);
+    if (products.find((product) => product.id === productData.id)) {
+      const product = products.find((product) => product.id === productData.id);
       product!.quantity += quantity;
-      const newState = state.filter((p) => p.id !== product!.id);
+      const newState = products.filter((newProduct) => newProduct.id !== product?.id);
       setStorage('SHOP_CART', [...newState, product]);
       dispath({ type: 'SET_CART', payload: [...newState, product] });
     } else {
@@ -29,21 +31,21 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
       productData.quantity = quantity;
       const cartData = getStorage('SHOP_CART');
       setStorage('SHOP_CART', [...cartData, productData]);
-      dispath({ type: 'ADD_TO_CART', payload: productData });
+      dispath({ type: 'ADD_TO_CART', payload: [...products, productData] });
     }
   };
 
   const deleteFromCart = (item: IProducts): void => {
     dispath({ type: 'REMOVE_FROM_CART', payload: item.id });
     // delete from local storage
-    const cartCopy = [...state];
-    const filterdCart = cartCopy.filter((product) => product.id !== item.id);
+    const cartCopy = { ...state };
+    const filterdCart = cartCopy.products.filter((product) => product.id !== item.id);
     setStorage('SHOP_CART', filterdCart);
   };
 
   const increaseQuantity = (item: IProducts): void => {
     dispath({ type: 'INCRESE_COUNT', payload: item.id });
-    const newProducts = state.map((item) => {
+    const newProducts = state.products.map((item) => {
       if (item.id === item.id) {
         return { ...item, quantity: item.quantity + 1 };
       }
@@ -58,7 +60,7 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
   };
   const decreaseQuantity = (item: IProducts): void => {
     dispath({ type: 'DECRESE_COUNT', payload: item.id });
-    const newProducts = state.map((item) => {
+    const newProducts = state.products.map((item) => {
       if (item.id === item.id) {
         return { ...item, quantity: item.quantity - 1 };
       }
@@ -69,9 +71,12 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
       deleteFromCart(item);
     }
   };
+  const setTotalPrice = (price: number): void => {
+    dispath({ type: 'SET_TOTAL_PRICE', payload: price });
+  };
   useEffect(() => {
     const localCopon = getStorage('DISCOUNT_COPON');
-    let totalPrice: any = state
+    let totalPrice: any = state.products
       .reduce((prev, item) => (prev += (item.price - (item.price * item.discountPercent) / 100) * item.quantity), 0)
       .toFixed(2);
     if (localCopon.percent > 0) {
@@ -82,12 +87,21 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
         }
       }
     }
-    setInvoice({ ...invoice, products: state, totalPrice: +totalPrice });
-  }, [state]);
+    setTotalPrice(totalPrice);
+  }, [state.products]);
 
   return (
     <CartContext.Provider
-      value={{ state, dispath, clearCart, addToCart, deleteFromCart, increaseQuantity, decreaseQuantity }}
+      value={{
+        cart: state.products,
+        totalPrice: state.totalPrice,
+        dispath,
+        clearCart,
+        addToCart,
+        deleteFromCart,
+        increaseQuantity,
+        decreaseQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>
@@ -95,12 +109,14 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
 };
 
 interface IReducer {
-  state: IProducts[];
+  cart: IProducts[];
+  totalPrice: number;
   dispath: ({ type, payload }: { type: string; payload: any }) => void;
   addToCart: (productData: IProducts, quantity: number) => void;
   deleteFromCart: (item: IProducts) => void;
   increaseQuantity: (item: IProducts) => void;
   decreaseQuantity: (item: IProducts) => void;
+  setTotalPrice: (price: number) => void;
   clearCart: () => void;
 }
 const useCartContext = (): IReducer => useContext(CartContext);

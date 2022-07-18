@@ -17,7 +17,7 @@ const Product: React.FC = () => {
 
   const { id } = useParams<string>();
   const navigate = useNavigate();
-  const { addToCart, state } = useCartContext();
+  const { addToCart, cart } = useCartContext();
   const [product, setProduct] = useState<IProducts | null>(null);
   const { errorToast } = useToast();
 
@@ -81,7 +81,7 @@ const Product: React.FC = () => {
     );
   }
   const discountPrice = (product!.price - (product!.price * product!.discountPercent) / 100).toFixed(2);
-  const isAddToCart = state.find((item) => item.id === product.id) ? true : false;
+  const isAddToCart = cart.find((item) => item.id === product.id) ? true : false;
   return (
     <Container>
       <div className='product-page__path'>

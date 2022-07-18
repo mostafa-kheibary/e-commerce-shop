@@ -5,7 +5,6 @@ import { ToastContextProvider } from './context/Toast/ToastContext';
 import App from './App';
 import './style/globalStyle.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { InvoiceContextProvider } from './context/Invoice/InvoiceContext';
 import { CartContextProvider } from './context/Cart/CartContext';
 import { LoaderContextProvider } from './context/Loader/LoaderContext';
 
@@ -28,7 +27,6 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <UserContextProvider>
     <ToastContextProvider>
-      <InvoiceContextProvider>
         <CartContextProvider>
           <LoaderContextProvider>
             <UserAuth />
@@ -37,7 +35,6 @@ root.render(
             </React.StrictMode>
           </LoaderContextProvider>
         </CartContextProvider>
-      </InvoiceContextProvider>
     </ToastContextProvider>
   </UserContextProvider>
 );

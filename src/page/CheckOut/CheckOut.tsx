@@ -1,10 +1,9 @@
 import { FC, useEffect } from 'react';
-import { updateDoc, doc, arrayUnion } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { Timestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input } from '../../components';
 import { useCartContext } from '../../context/Cart/CartContext';
-import { useInvoiceContext } from '../../context/Invoice/InvoiceContext';
 import { useUserContext } from '../../context/User/UserContext';
 import useAuth from '../../hook/useAuth';
 import useForm from '../../hook/useForm';
@@ -16,8 +15,7 @@ import './CheckOut.css';
 
 const CheckOut: FC = () => {
   const { isAuth, loading } = useAuth();
-  const { state: cart, clearCart } = useCartContext();
-  const { state: invoice, setInvoice } = useInvoiceContext();
+  const { cart, totalPrice, clearCart } = useCartContext();
   const {
     state: { user },
   } = useUserContext();
@@ -38,15 +36,18 @@ const CheckOut: FC = () => {
       if (cart.length > 0) {
         try {
           const orderId = Date.now().toString(36) + Math.random().toString(36).substr(2);
-          const invoiceData: any = { ...invoice, ...values, userUid: user.uid, orderId, timeStamp: Timestamp.now() };
-          setInvoice(invoiceData);
-          const docRef = doc(db, 'users', user.uid);
-          await updateDoc(docRef, {
-            purchuses: arrayUnion(invoiceData),
-          });
+          const invoiceData: any = {
+            orderId,
+            products: cart,
+            totalPrice,
+            orderInfo: { ...values },
+            timeStamp: Timestamp.now(),
+            userRef: doc(db, 'users', user.uid),
+          };
+          await setDoc(doc(db, 'purchuses', orderId), invoiceData);
           clearCart();
           setStorage('DISCOUNT_COPON', { text: '', percent: 0 });
-          navigate('/thanks', { state: { inApp: true }, replace: true });
+          navigate('/thanks', { state: { inApp: true, invoice: invoiceData }, replace: true });
         } catch (error) {
           errorToast('cant place your order', 'make sure that put evrything right');
         }
@@ -148,7 +149,7 @@ const CheckOut: FC = () => {
             <h4 className='checkout__right__subtotal'>
               Subtotal ({cart.reduce((prev, product) => (prev += product.quantity), 0)})
             </h4>
-            <h4 className='checkout__right__totalPrice'>Toatal Order : {invoice.totalPrice} $</h4>
+            <h4 className='checkout__right__totalPrice'>Toatal Order : {totalPrice} $</h4>
           </div>
         </div>
       </div>

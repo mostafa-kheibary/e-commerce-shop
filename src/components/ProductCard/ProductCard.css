@@ -95,6 +95,12 @@
   bottom: -20%;
   transition: all 300ms ease;
 }
+.add-to-cart:disabled {
+  background-color: rgba(0, 119, 255, 0.336);
+}
+.add-to-cart:disabled:hover {
+  background-color: rgba(0, 119, 255, 0.336);
+}
 .product-card:hover > .product-card__image .add-to-cart {
   bottom: 0;
 }
