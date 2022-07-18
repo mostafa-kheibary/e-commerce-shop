@@ -102,6 +102,7 @@ const CartContextProvider: React.FC<IProps> = ({ children }) => {
         deleteFromCart,
         increaseQuantity,
         decreaseQuantity,
+        setTotalPrice,
       }}
     >
       {children}

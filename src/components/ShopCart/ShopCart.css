@@ -80,6 +80,7 @@
 }
 .cart-wrapper__body {
   margin-top: 7rem;
+  padding-bottom: 10rem;
   overflow-y: scroll;
   height: calc(100% - 7rem);
 }

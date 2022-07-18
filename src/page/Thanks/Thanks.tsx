@@ -7,7 +7,7 @@ import './Thanks.css';
 const Thanks: FC = () => {
   const location: any = useLocation();
   const navigate = useNavigate();
-  if (!location.state.inApp || location.state.invoice === undefined) {
+  if (!location.state.inApp || location.state.orderId === undefined) {
     return <Navigate replace to='/' />;
   }
 
@@ -19,7 +19,7 @@ const Thanks: FC = () => {
       </div>
       <hr className='thanks-page__line' />
       <div className='thanks-page__order'>
-        <h4 className='thanks-page__order-title'>your order Id : {location.state.invoice.orderId}</h4>
+        <h4 className='thanks-page__order-title'>your order Id : {location.state.orderId}</h4>
         <p className='thanks-page__order-discription'>you can see your order in profile section</p>
         <Button onClick={() => navigate('/profile/order')}>Go To My Order</Button>
       </div>

@@ -16,6 +16,7 @@ const ShopCart: React.FC = () => {
   const [addAnimation, setAddAnimation] = useState<boolean>(false);
   const navigate = useNavigate();
   const { getStorage } = useLocalStorage();
+  
   useEffect(() => {
     const fethProducts = () => {
       const cartData = getStorage('SHOP_CART');

@@ -37,6 +37,15 @@ body::-webkit-scrollbar-thumb {
   border: 0.3rem solid white;
   border-radius: 50rem;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield !important;
+}
 @media screen and (max-width: 680px) {
   body::-webkit-scrollbar {
     display: none;

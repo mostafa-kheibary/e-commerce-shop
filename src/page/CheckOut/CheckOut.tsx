@@ -11,6 +11,7 @@ import useToast from '../../hook/useToast';
 import { Container } from '../../Layout';
 import { db } from '../../config/firebase.config';
 import useLocalStorage from '../../hook/useLocalStorage';
+import { useLoader } from '../../context/Loader/LoaderContext';
 import './CheckOut.css';
 
 const CheckOut: FC = () => {
@@ -20,6 +21,7 @@ const CheckOut: FC = () => {
     state: { user },
   } = useUserContext();
   const { setStorage } = useLocalStorage();
+  const { setLoader } = useLoader();
   const navigate = useNavigate();
   const { errorToast } = useToast();
 
@@ -35,6 +37,7 @@ const CheckOut: FC = () => {
     if (isAuth) {
       if (cart.length > 0) {
         try {
+          setLoader(true);
           const orderId = Date.now().toString(36) + Math.random().toString(36).substr(2);
           const invoiceData: any = {
             orderId,
@@ -45,14 +48,17 @@ const CheckOut: FC = () => {
             userRef: doc(db, 'users', user.uid),
           };
           await setDoc(doc(db, 'purchuses', orderId), invoiceData);
+          setLoader(false);
           clearCart();
           setStorage('DISCOUNT_COPON', { text: '', percent: 0 });
-          navigate('/thanks', { state: { inApp: true, invoice: invoiceData }, replace: true });
+          navigate('/thanks', { state: { inApp: true, orderId } });
         } catch (error) {
+          setLoader(false);
           errorToast('cant place your order', 'make sure that put evrything right');
         }
       }
     } else {
+      setLoader(false);
       errorToast('you are not login', 'please log in to your account to continue');
     }
   };
@@ -105,6 +111,7 @@ const CheckOut: FC = () => {
                 placeholder='City'
               />
               <Input
+                type='number'
                 required
                 value={values.zipCode}
                 name='zipCode'
@@ -115,6 +122,7 @@ const CheckOut: FC = () => {
             </div>
             <Input
               required
+              type='tel'
               value={values.phoneNumber}
               name='phoneNumber'
               onChange={handleChange}
@@ -141,7 +149,7 @@ const CheckOut: FC = () => {
                       {(product.price - (product.price * product.discountPercent) / 100).toFixed(2)}
                     </h5>
                   </div>
-                  <h5>{product.quantity}</h5>
+                  <h5 className='checkout__right__product__quantity'>{product.quantity}</h5>
                 </div>
               ))}
             </div>

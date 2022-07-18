@@ -49,9 +49,16 @@
 }
 
 .checkout__right__product {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   gap: 2rem;
+}
+.checkout__right__product__quantity {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .checkout__right__product__name {
   font-size: 1.4rem;

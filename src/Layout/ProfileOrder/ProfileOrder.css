@@ -23,6 +23,10 @@
   font-size: 1.5rem;
   font-weight: 500;
 }
+.order-page__orders__length {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
 .order-page__orders__order-price {
   font-size: 1.4rem;
   font-weight: 400;
@@ -35,6 +39,7 @@
 .order-page__orders__order-products {
   margin-top: 2rem;
   display: flex;
+  align-items: center;
   gap: 2rem;
 }
 .order-page__orders-button {

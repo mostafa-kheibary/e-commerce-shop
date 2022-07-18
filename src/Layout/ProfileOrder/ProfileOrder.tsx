@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Button, Loader } from '../../components';
 import { db } from '../../config/firebase.config';
@@ -7,10 +7,9 @@ import { IProducts } from '../../types/productsType';
 import './ProfileOrder.css';
 
 const ProfileOrder: React.FC = () => {
-  const [orders, setOrders] = useState<[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  console.log(orders);
   const {
     state: { user },
   } = useUserContext();
@@ -18,9 +17,14 @@ const ProfileOrder: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const docRef = doc(db, 'users', user.uid);
-      const userData = await getDoc(docRef);
-      setOrders(userData.data()!.purchuses);
+      const ordersData: any[] = [];
+      const userRef = doc(db, 'users', user.uid);
+      const purchusesQueryRef = query(collection(db, 'purchuses'), where('userRef', '==', userRef));
+      const querySnapShot = await getDocs(purchusesQueryRef);
+      querySnapShot.forEach((chunk) => {
+        ordersData.push(chunk.data());
+      });
+      setOrders(ordersData);
       setLoading(false);
     })();
   }, []);
@@ -46,15 +50,22 @@ const ProfileOrder: React.FC = () => {
             </div>
             <div className='order-page__orders__order-products'>
               {order.products.length <= 4
-                ? order.products.map((product: IProducts) => (
-                    <img className='order-page__orders__order-img' src={product.imageUrls[0]} alt={product.name} />
+                ? order.products.map((product: IProducts, i: number) => (
+                    <img
+                      key={i}
+                      className='order-page__orders__order-img'
+                      src={product.imageUrls[0]}
+                      alt={product.name}
+                    />
                   ))
-                : order.products.splice(0, 4).map((product: IProducts) => (
-                    <div>
+                : [...order.products].splice(0, 4).map((product: IProducts, i: number) => (
+                    <div key={i}>
                       <img className='order-page__orders__order-img' src={product.imageUrls[0]} alt={product.name} />
                     </div>
                   ))}
-              {order.products.length}
+              <span className='order-page__orders__length'>
+                {order.products.length >= 4 && `+ ${order.products.length - 4}`}
+              </span>
             </div>
             <Button className='secoundry order-page__orders-button'>{'>'}</Button>
           </div>
