@@ -1,0 +1,28 @@
+.about__title {
+  font-size: 3rem;
+}
+.about__autur {
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+.about__discription {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 1rem 0;
+}
+.about__button {
+  position: relative;
+}
+.about__button > a {
+  text-decoration: none;
+  color: black;
+}
+.about__button > a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
