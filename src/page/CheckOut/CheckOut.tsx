@@ -63,7 +63,14 @@ const CheckOut: FC = () => {
     }
   };
 
-  const { handleChange, handleSubmit, values } = useForm(handleOrder);
+  const { handleChange, handleSubmit, values } = useForm(handleOrder, {
+    firstName: '',
+    secoundName: '',
+    address: '',
+    zipCode: '',
+    city: '',
+    phoneNumber: '',
+  });
 
   return (
     <Container>
@@ -122,7 +129,7 @@ const CheckOut: FC = () => {
             </div>
             <Input
               required
-              type='tel'
+              type='number'
               value={values.phoneNumber}
               name='phoneNumber'
               onChange={handleChange}

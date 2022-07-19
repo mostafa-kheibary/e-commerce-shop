@@ -55,7 +55,7 @@ const MobileNav: React.FC = () => {
       {/* manu */}
       <div className={`mobile-nav__menu ${isOpen ? 'open' : ''}`}>
         <div className='mobile-nav__menu__search-box'>
-          <input className='mobile-nav__menu__search-box__search-input' type='' placeholder='search for product' />
+          <h4 className='mobile-nav__menu__title'>Ecommerce Shop</h4>
         </div>
         <NavLink />
         <Button className='mobile-menu__register-button secoundry'>

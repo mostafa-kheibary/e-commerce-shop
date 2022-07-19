@@ -13,6 +13,7 @@ import { useUserContext } from '../../context/User/UserContext';
 import './SignIn.css';
 import VerifyCodeInput from '../../components/VerifyCodeInput/VerifyCodeInput';
 import useToast from '../../hook/useToast';
+import { useLoader } from '../../context/Loader/LoaderContext';
 
 declare global {
   interface Window {
@@ -36,6 +37,7 @@ const SignIn: React.FC = () => {
   const [stage, setStage] = useState<'start' | 'verify' | 'newUser'>('start');
   const [loading, setLoading] = useState<boolean>(false);
   const [verifyCode, setVerifyCode] = useState<number>(0);
+  const { setLoader } = useLoader();
   const auth = getAuth();
 
   useEffect(() => {
@@ -99,6 +101,7 @@ const SignIn: React.FC = () => {
   const handleChnageName = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setLoader(true);
       const user = auth.currentUser;
       const newUser: IUser = {
         name: values.name,
@@ -112,9 +115,11 @@ const SignIn: React.FC = () => {
         await setDoc(doc(db, 'users', user!.uid), newUser),
         await updateProfile(user!, { displayName: values.name }),
       ]);
+      setLoader(false);
       navigate('/profile');
       succsesToast('Login succsesfully', 'Now you can see your information in profile tabs');
     } catch (error) {
+      setLoader(false);
       errorToast('somthing went wrong', 'cant add user name try again');
     }
   };
@@ -145,7 +150,7 @@ const SignIn: React.FC = () => {
               <Button className='sign-in__button' type='submit'>
                 {loading ? <img width={20} src={loadingBar} alt='loading' /> : 'send verification code'}
               </Button>
-              <h4 style={{fontWeight:300,fontSize:'1.5rem',textAlign:'center'}}>or</h4>
+              <h4 style={{ fontWeight: 300, fontSize: '1.5rem', textAlign: 'center' }}>or</h4>
               <GoogleAuth />
             </form>
           ) : stage === 'verify' ? (

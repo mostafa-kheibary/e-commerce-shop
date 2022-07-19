@@ -28,6 +28,7 @@ const Profile: React.FC = () => {
           Account Setting
         </Link>
       </div>
+      <h2 className='profile__mobile__name'>{user.displayName}</h2>
       <div className='profile__content'>
         {loc.pathname.split('/')[2] ? (
           <Outlet />

@@ -1,6 +1,6 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { FC, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ProductCard, ProductCardLoading } from '../../components';
 import ProductContainer from '../../components/ProductsContainer/ProductContainer';
 import { db } from '../../config/firebase.config';
@@ -32,8 +32,8 @@ const CatagoryPage: FC = () => {
     <Container>
       <ProductContainer>
         {loading && new Array(6).fill(0).map((_, i) => <ProductCardLoading key={i} />)}
-        {products.map((product) => (
-          <ProductCard productData={product} />
+        {products.map((product, i: number) => (
+          <ProductCard key={i} productData={product} />
         ))}
       </ProductContainer>
     </Container>

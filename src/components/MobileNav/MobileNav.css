@@ -53,11 +53,9 @@
   height: 7rem;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.089);
 }
-.mobile-nav__menu__search-box__search-input {
-  padding: 1rem;
-  font-size: 1.4rem;
-  width: 90%;
-  border: none;
+.mobile-nav__menu__title {
+  font-size: 1.7rem;
+  font-weight: 400;
 }
 .mobile-nav__menu__search-box__search-input:focus {
   outline: none;
