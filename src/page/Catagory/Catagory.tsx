@@ -23,7 +23,7 @@ const Catagory: FC = () => {
           <img className='catagory__image' src={accImage} alt="phone's picture" />
           <h4 className='catagory__text'>Accessories</h4>
         </Link>
-        <Link className='catagory__link' to='consoles'>
+        <Link className='catagory__link' to='consols'>
           <img className='catagory__image' src={consoleImage} alt="phone's picture" />
           <h4 className='catagory__text'>Consoles</h4>
         </Link>
