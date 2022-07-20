@@ -6,6 +6,7 @@
 
 > **_NOTE :_** this project build for personal practice and its not real business
 
+![image](./src/assets/image/preview.png)
 ##### I use :
 
 > react , react router , framer motion , context and reducer for state manageing ,
